@@ -1,0 +1,50 @@
+cmake_minimum_required(VERSION 3.17)
+
+#set(CMAKE_C_COMPILER "C:/Program Files/mingw-w64/x86_64-8.1.0-win32-seh-rt_v6-rev0/mingw64/bin/gcc")
+#set(CMAKE_CXX_COMPILER "C:/Program Files/mingw-w64/x86_64-8.1.0-win32-seh-rt_v6-rev0/mingw64/bin/g++")
+
+
+project(SecurityCmodel)
+
+
+set(cmodle_srcs 
+    SNOW_3G.c
+    ZUC.c
+    AES_Encrypt.c
+    eea1.c
+    eea2.c
+    eea3.c
+    eia1.c
+    eia2.c
+    eia3.c
+    sysio.c
+    sec_reg.c
+    security.c
+    testpattern.c
+wrapper.c ) 
+
+set(fpga_srcs 
+    SNOW_3G.c
+    ZUC.c
+    AES_Encrypt.c
+    eea1.c
+    eea2.c
+    eea3.c
+    eia1.c
+    eia2.c
+    eia3.c
+    sysio.c
+    secReg.c
+    plat_security.c
+    securityFPGA.c
+ ) 
+
+add_executable(SecCmodel ${cmodle_srcs})
+target_compile_options(SecCmodel PUBLIC -Wall)
+
+add_executable(SecFPGA ${fpga_srcs})
+target_compile_options(SecFPGA PUBLIC -Wall)
+
+install(TARGETS SecCmodel DESTINATION ${CMAKE_SOURCE_DIR}) 
+install(TARGETS SecFPGA DESTINATION ${CMAKE_SOURCE_DIR}) 
+
