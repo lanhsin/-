@@ -4,28 +4,28 @@
 //#define SNOW_3G_PRINT
 
 /* LFSR */
-static u32 LFSR_S0 = 0x00;
-static u32 LFSR_S1 = 0x00;
-static u32 LFSR_S2 = 0x00;
-static u32 LFSR_S3 = 0x00;
-static u32 LFSR_S4 = 0x00;
-static u32 LFSR_S5 = 0x00;
-static u32 LFSR_S6 = 0x00;
-static u32 LFSR_S7 = 0x00;
-static u32 LFSR_S8 = 0x00;
-static u32 LFSR_S9 = 0x00;
-static u32 LFSR_S10 = 0x00;
-static u32 LFSR_S11 = 0x00;
-static u32 LFSR_S12 = 0x00;
-static u32 LFSR_S13 = 0x00;
-static u32 LFSR_S14 = 0x00;
-static u32 LFSR_S15 = 0x00;
+static uint32_t LFSR_S0 = 0x00;
+static uint32_t LFSR_S1 = 0x00;
+static uint32_t LFSR_S2 = 0x00;
+static uint32_t LFSR_S3 = 0x00;
+static uint32_t LFSR_S4 = 0x00;
+static uint32_t LFSR_S5 = 0x00;
+static uint32_t LFSR_S6 = 0x00;
+static uint32_t LFSR_S7 = 0x00;
+static uint32_t LFSR_S8 = 0x00;
+static uint32_t LFSR_S9 = 0x00;
+static uint32_t LFSR_S10 = 0x00;
+static uint32_t LFSR_S11 = 0x00;
+static uint32_t LFSR_S12 = 0x00;
+static uint32_t LFSR_S13 = 0x00;
+static uint32_t LFSR_S14 = 0x00;
+static uint32_t LFSR_S15 = 0x00;
 /* FSM */
-static u32 FSM_R1 = 0x00;
-static u32 FSM_R2 = 0x00;
-static u32 FSM_R3 = 0x00;
+static uint32_t FSM_R1 = 0x00;
+static uint32_t FSM_R2 = 0x00;
+static uint32_t FSM_R3 = 0x00;
 /* Rijndael S-box SR */
-static u8 SR[256] = {
+static uint8_t SR[256] = {
 	0x63,0x7C,0x77,0x7B,0xF2,0x6B,0x6F,0xC5,0x30,0x01,0x67,0x2B,0xFE,0xD7,0xAB,0x76,
 		0xCA,0x82,0xC9,0x7D,0xFA,0x59,0x47,0xF0,0xAD,0xD4,0xA2,0xAF,0x9C,0xA4,0x72,0xC0,
 		0xB7,0xFD,0x93,0x26,0x36,0x3F,0xF7,0xCC,0x34,0xA5,0xE5,0xF1,0x71,0xD8,0x31,0x15,
@@ -44,7 +44,7 @@ static u8 SR[256] = {
 		0x8C,0xA1,0x89,0x0D,0xBF,0xE6,0x42,0x68,0x41,0x99,0x2D,0x0F,0xB0,0x54,0xBB,0x16
 };
 /* S-box SQ */
-static u8 SQ[256] = {
+static uint8_t SQ[256] = {
 	0x25,0x24,0x73,0x67,0xD7,0xAE,0x5C,0x30,0xA4,0xEE,0x6E,0xCB,0x7D,0xB5,0x82,0xDB,
 		0xE4,0x8E,0x48,0x49,0x4F,0x5D,0x6A,0x78,0x70,0x88,0xE8,0x5F,0x5E,0x84,0x65,0xE2,
 		0xD8,0xE9,0xCC,0xED,0x40,0x2F,0x11,0x28,0x57,0xD2,0xAC,0xE3,0x4A,0x15,0x1B,0xB9,
@@ -68,7 +68,7 @@ static u8 SQ[256] = {
 * Output : an 8-bit output.
 * See section 3.1.1 for details.
 */
-static u8 MULx(u8 V, u8 c)
+static uint8_t MULx(uint8_t V, uint8_t c)
 {
 	if ( V & 0x80 )
 		return ( (V << 1) ^ c);
@@ -82,7 +82,7 @@ static u8 MULx(u8 V, u8 c)
 * Output : an 8-bit output.
 * See section 3.1.2 for details.
 */
-static u8 MULxPOW(u8 V, u8 i, u8 c)
+static uint8_t MULxPOW(uint8_t V, uint8_t i, uint8_t c)
 {
 	if ( i == 0)
 		return V;
@@ -95,37 +95,37 @@ static u8 MULxPOW(u8 V, u8 i, u8 c)
 * See section 3.4.2 for details.
 */
 
-static u32 MULalpha(u8 c)
+static uint32_t MULalpha(uint8_t c)
 {
-	return ( ( ((u32)MULxPOW(c, 23, 0xa9)) << 24 ) |
-		( ((u32)MULxPOW(c, 245, 0xa9)) << 16 ) |
-		( ((u32)MULxPOW(c, 48, 0xa9)) << 8 ) |
-		( ((u32)MULxPOW(c, 239, 0xa9)) ) ) ;
+	return ( ( ((uint32_t)MULxPOW(c, 23, 0xa9)) << 24 ) |
+		( ((uint32_t)MULxPOW(c, 245, 0xa9)) << 16 ) |
+		( ((uint32_t)MULxPOW(c, 48, 0xa9)) << 8 ) |
+		( ((uint32_t)MULxPOW(c, 239, 0xa9)) ) ) ;
 }
 /* The function DIV alpha.
 * Input c: 8-bit input.
 * Output : 32-bit output.
 * See section 3.4.3 for details.
 */
-static u32 DIValpha(u8 c)
+static uint32_t DIValpha(uint8_t c)
 {
-	return ( ( ((u32)MULxPOW(c, 16, 0xa9)) << 24 ) |
-		( ((u32)MULxPOW(c, 39, 0xa9)) << 16 ) |
-		( ((u32)MULxPOW(c, 6, 0xa9)) << 8 ) |
-		( ((u32)MULxPOW(c, 64, 0xa9)) ) ) ;
+	return ( ( ((uint32_t)MULxPOW(c, 16, 0xa9)) << 24 ) |
+		( ((uint32_t)MULxPOW(c, 39, 0xa9)) << 16 ) |
+		( ((uint32_t)MULxPOW(c, 6, 0xa9)) << 8 ) |
+		( ((uint32_t)MULxPOW(c, 64, 0xa9)) ) ) ;
 }
 /* The 32x32-bit S-Box S1
 * Input: a 32-bit input.
 * Output: a 32-bit output of S1 box.
 * See section 3.3.1.
 */
-static u32 S1(u32 w)
+static uint32_t S1(uint32_t w)
 {
-	u8 r0=0, r1=0, r2=0, r3=0;
-	u8 srw0 = SR[ (u8)((w >> 24) & 0xff) ];
-	u8 srw1 = SR[ (u8)((w >> 16) & 0xff) ];
-	u8 srw2 = SR[ (u8)((w >> 8) & 0xff) ];
-	u8 srw3 = SR[ (u8)((w) & 0xff) ];
+	uint8_t r0=0, r1=0, r2=0, r3=0;
+	uint8_t srw0 = SR[ (uint8_t)((w >> 24) & 0xff) ];
+	uint8_t srw1 = SR[ (uint8_t)((w >> 16) & 0xff) ];
+	uint8_t srw2 = SR[ (uint8_t)((w >> 8) & 0xff) ];
+	uint8_t srw3 = SR[ (uint8_t)((w) & 0xff) ];
 	r0 = ( ( MULx( srw0 , 0x1b) ) ^
 		( srw1 ) ^
 		( srw2 ) ^
@@ -146,21 +146,21 @@ static u32 S1(u32 w)
 		( ( MULx( srw2 , 0x1b) ) ^ srw2 ) ^
 		( MULx( srw3, 0x1b) )
 		);
-	return ( ( ((u32)r0) << 24 ) | ( ((u32)r1) << 16 ) | ( ((u32)r2) << 8 ) |
-		( ((u32)r3) ) );
+	return ( ( ((uint32_t)r0) << 24 ) | ( ((uint32_t)r1) << 16 ) | ( ((uint32_t)r2) << 8 ) |
+		( ((uint32_t)r3) ) );
 }
 /* The 32x32-bit S-Box S2
 * Input: a 32-bit input.
 * Output: a 32-bit output of S2 box.
 * See section 3.3.2.
 */
-static u32 S2(u32 w)
+static uint32_t S2(uint32_t w)
 {
-	u8 r0=0, r1=0, r2=0, r3=0;
-	u8 sqw0 = SQ[ (u8)((w >> 24) & 0xff) ];
-	u8 sqw1 = SQ[ (u8)((w >> 16) & 0xff) ];
-	u8 sqw2 = SQ[ (u8)((w >> 8) & 0xff) ];
-	u8 sqw3 = SQ[ (u8)((w) & 0xff) ];
+	uint8_t r0=0, r1=0, r2=0, r3=0;
+	uint8_t sqw0 = SQ[ (uint8_t)((w >> 24) & 0xff) ];
+	uint8_t sqw1 = SQ[ (uint8_t)((w >> 16) & 0xff) ];
+	uint8_t sqw2 = SQ[ (uint8_t)((w >> 8) & 0xff) ];
+	uint8_t sqw3 = SQ[ (uint8_t)((w) & 0xff) ];
 	r0 = ( ( MULx( sqw0 , 0x69) ) ^
 		( sqw1 ) ^
 		( sqw2 ) ^
@@ -181,21 +181,21 @@ static u32 S2(u32 w)
 		( ( MULx( sqw2 , 0x69) ) ^ sqw2 ) ^
 		( MULx( sqw3, 0x69) )
 		);
-	return ( ( ((u32)r0) << 24 ) | ( ((u32)r1) << 16 ) | ( ((u32)r2) << 8 ) |
-		( ((u32)r3) ) );
+	return ( ( ((uint32_t)r0) << 24 ) | ( ((uint32_t)r1) << 16 ) | ( ((uint32_t)r2) << 8 ) |
+		( ((uint32_t)r3) ) );
 }
 /* Clocking LFSR in initialization mode.
 * LFSR Registers S0 to S15 are updated as the LFSR receives a single clock.
 * Input F: a 32-bit word comes from output of FSM.
 * See section 3.4.4.
 */
-static void ClockLFSRInitializationMode(u32 F)
+static void ClockLFSRInitializationMode(uint32_t F)
 {
-	u32 v = ( ( (LFSR_S0 << 8) & 0xffffff00 ) ^
-		( MULalpha( (u8)((LFSR_S0>>24) & 0xff) ) ) ^
+	uint32_t v = ( ( (LFSR_S0 << 8) & 0xffffff00 ) ^
+		( MULalpha( (uint8_t)((LFSR_S0>>24) & 0xff) ) ) ^
 		( LFSR_S2 ) ^
 		( (LFSR_S11 >> 8) & 0x00ffffff ) ^
-		( DIValpha( (u8)( ( LFSR_S11) & 0xff ) ) ) ^
+		( DIValpha( (uint8_t)( ( LFSR_S11) & 0xff ) ) ) ^
 		( F )
 		);
 #ifdef SNOW_3G_PRINT
@@ -233,11 +233,11 @@ static void ClockLFSRInitializationMode(u32 F)
 */
 static void ClockLFSRKeyStreamMode(void)
 {
-	u32 v = ( ( (LFSR_S0 << 8) & 0xffffff00 ) ^
-		( MULalpha( (u8)((LFSR_S0>>24) & 0xff) ) ) ^
+	uint32_t v = ( ( (LFSR_S0 << 8) & 0xffffff00 ) ^
+		( MULalpha( (uint8_t)((LFSR_S0>>24) & 0xff) ) ) ^
 		( LFSR_S2 ) ^
 		( (LFSR_S11 >> 8) & 0x00ffffff ) ^
-		( DIValpha( (u8)( ( LFSR_S11) & 0xff ) ) )
+		( DIValpha( (uint8_t)( ( LFSR_S11) & 0xff ) ) )
 		);
 #if 0
 #ifdef SNOW_3G_PRINT
@@ -270,9 +270,9 @@ static void ClockLFSRKeyStreamMode(void)
 * Updates FSM registers R1, R2, R3.
 * See Section 3.4.6.
 */
-static u32 ClockFSM(void)
+static uint32_t ClockFSM(void)
 {
-	u32 F = ( ( LFSR_S15 + FSM_R1 ) & 0xffffffff ) ^ FSM_R2 ;
+	uint32_t F = ( ( LFSR_S15 + FSM_R1 ) & 0xffffffff ) ^ FSM_R2 ;
 #if 0
 #ifdef SNOW_3G_PRINT
         printf("in ClockFSM() LFSR_S15 = %08X\n", LFSR_S15);
@@ -280,7 +280,7 @@ static u32 ClockFSM(void)
         printf("in ClockFSM() FSM_R2 = %08X\n", FSM_R2);
 #endif
 #endif
-	u32 r = ( FSM_R2 + ( FSM_R3 ^ LFSR_S5 ) ) & 0xffffffff ;
+	uint32_t r = ( FSM_R2 + ( FSM_R3 ^ LFSR_S5 ) ) & 0xffffffff ;
 	FSM_R3 = S2(FSM_R2);
 	FSM_R2 = S1(FSM_R1);
 	FSM_R1 = r;
@@ -292,10 +292,10 @@ static u32 ClockFSM(void)
 * Output: All the LFSRs and FSM are initialized for key generation.
 * See Section 4.1.
 */
-void Initialize(u32 k[4], u32 IV[4])
+void Initialize(uint32_t k[4], uint32_t IV[4])
 {
-	u8 i=0;
-	u32 F = 0x0;
+	uint8_t i=0;
+	uint32_t F = 0x0;
 	LFSR_S15 = k[3] ^ IV[0];
 	LFSR_S14 = k[2];
 	LFSR_S13 = k[1];
@@ -328,10 +328,10 @@ void Initialize(u32 k[4], u32 IV[4])
 * output: generated keystream which is filled in z
 * See section 4.2.
 */
-void GenerateKeystream(u32 n, u32 *ks)
+void GenerateKeystream(uint32_t n, uint32_t *ks)
 {
-	u32 t = 0;
-	u32 F = 0x0;
+	uint32_t t = 0;
+	uint32_t F = 0x0;
 	ClockFSM(); /* Clock FSM once. Discard the output. */
 	ClockLFSRKeyStreamMode(); /* Clock LFSR in keystream mode once. */
 	for ( t=0; t<1; t++)    //for ( t=0; t<n; t++)

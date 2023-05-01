@@ -42,14 +42,14 @@ typedef struct {
     unsigned char *dest_data;
 } SECURITY_Config_t;
 
-extern void Plat_Security_SetDma_Mode(BOOL value);
-extern void Plat_Security_SetCfg(SECURITY_Config_t *pCipher);
-extern void Plat_Security_SetMst(unsigned int RdAddr, unsigned int WrAddr);
-extern void Plat_Security_GetData(unsigned int* retMac);
-extern void Plat_Security_ClearPollingBit(void);
+void Plat_Security_SetDma_Mode(bool value);
+void Plat_Security_SetCfg(SECURITY_Config_t *pCipher);
+void Plat_Security_SetMst(unsigned int RdAddr, unsigned int WrAddr);
+void Plat_Security_GetData(unsigned int* retMac);
+void Plat_Security_ClearPollingBit(void);
 
-extern void Plat_Security_SetRxFIFO_AlmostEmpty(unsigned char value);
-extern void Plat_Security_SetTxFIFO_AlmostFull(unsigned char value);
+void Plat_Security_SetRxFIFO_AlmostEmpty(unsigned char value);
+void Plat_Security_SetTxFIFO_AlmostFull(unsigned char value);
 
 
 #endif /* _PLAT_SECURITY_H_ */

@@ -19,24 +19,7 @@
 *   C model : Read register settings from test files.
 */
 
-#if defined(QEMU_RTK_CUS)
-
-void read_reg( unsigned int addr, unsigned int* data, unsigned int byte_size)
-{
-    memcpy(data, (unsigned char*)addr, byte_size);
-}
-
-void write_mem( unsigned int addr, unsigned char* data, unsigned int byte_size)
-{
-    cpu_physical_memory_write(addr, data, byte_size);
-}
-
-void read_mem( unsigned int addr, unsigned char* data, unsigned int byte_size)
-{
-    cpu_physical_memory_read(addr, data, byte_size);
-}
-
-#elif defined(FPGA_SIM_RTK)
+#if defined(FPGA_SIM_RTK)
 
 void write_reg( unsigned int addr, unsigned int data, unsigned int byte_size)
 {

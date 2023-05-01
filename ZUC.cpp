@@ -1,40 +1,41 @@
-#include "sec_type.h"
+#include "ZUC.h"
+#include <stdio.h>
 
-#define MAKEU31(a, b, c) (((u32)(a) << 23) | ((u32)(b) << 8) | (u32)(c))
-#define MAKEU32(a, b, c, d) (((u32)(a) << 24) | ((u32)(b) << 16) | ((u32)(c) << 8) | ((u32)(d)))
+#define MAKEU31(a, b, c) (((uint32_t)(a) << 23) | ((uint32_t)(b) << 8) | (uint32_t)(c))
+#define MAKEU32(a, b, c, d) (((uint32_t)(a) << 24) | ((uint32_t)(b) << 16) | ((uint32_t)(c) << 8) | ((uint32_t)(d)))
 #define MulByPow2(x, k) ((((x) << k) | ((x) >> (31 - k))) & 0x7FFFFFFF)
 #define ROT(a, k) (((a) << k) | ((a) >> (32 - k)))
 
 /* the state registers of LFSR */
-static u32 LFSR_S0;
-static u32 LFSR_S1;
-static u32 LFSR_S2;
-static u32 LFSR_S3;
-static u32 LFSR_S4;
-static u32 LFSR_S5;
-static u32 LFSR_S6;
-static u32 LFSR_S7;
-static u32 LFSR_S8;
-static u32 LFSR_S9;
-static u32 LFSR_S10;
-static u32 LFSR_S11;
-static u32 LFSR_S12;
-static u32 LFSR_S13;
-static u32 LFSR_S14;
-static u32 LFSR_S15;
+static uint32_t LFSR_S0;
+static uint32_t LFSR_S1;
+static uint32_t LFSR_S2;
+static uint32_t LFSR_S3;
+static uint32_t LFSR_S4;
+static uint32_t LFSR_S5;
+static uint32_t LFSR_S6;
+static uint32_t LFSR_S7;
+static uint32_t LFSR_S8;
+static uint32_t LFSR_S9;
+static uint32_t LFSR_S10;
+static uint32_t LFSR_S11;
+static uint32_t LFSR_S12;
+static uint32_t LFSR_S13;
+static uint32_t LFSR_S14;
+static uint32_t LFSR_S15;
 
 /* the registers of F */
-static u32 F_R1;
-static u32 F_R2;
+static uint32_t F_R1;
+static uint32_t F_R2;
 
 /* the outputs of BitReorganization */
-static u32 BRC_X0;
-static u32 BRC_X1;
-static u32 BRC_X2;
-static u32 BRC_X3;
+static uint32_t BRC_X0;
+static uint32_t BRC_X1;
+static uint32_t BRC_X2;
+static uint32_t BRC_X3;
 
 /* the s-boxes */
-static u8 S0[256] = 
+static uint8_t S0[256] = 
 {
     0x3e,0x72,0x5b,0x47,0xca,0xe0,0x00,0x33,0x04,0xd1,0x54,0x98,0x09,0xb9,0x6d,0xcb,
     0x7b,0x1b,0xf9,0x32,0xaf,0x9d,0x6a,0xa5,0xb8,0x2d,0xfc,0x1d,0x08,0x53,0x03,0x90,
@@ -54,7 +55,7 @@ static u8 S0[256] =
     0x8d,0x27,0x1a,0xdb,0x81,0xb3,0xa0,0xf4,0x45,0x7a,0x19,0xdf,0xee,0x78,0x34,0x60
 };
 
-static u8 S1[256] = 
+static uint8_t S1[256] = 
 { 
     0x55,0xc2,0x63,0x71,0x3b,0xc8,0x47,0x86,0x9f,0x3c,0xda,0x5b,0x29,0xaa,0xfd,0x77,
     0x8c,0xc5,0x94,0x0c,0xa6,0x1a,0x13,0x00,0xe3,0xa8,0x16,0x72,0x40,0xf9,0xf8,0x42,
@@ -75,7 +76,7 @@ static u8 S1[256] =
 };
 
 /* the constants D */
-static u32 EK_d[16] = 
+static uint32_t EK_d[16] = 
 {
     0x44D7, 0x26BC, 0x626B, 0x135E, 0x5789, 0x35E2, 0x7135, 0x09AF,
     0x4D78, 0x2F13, 0x6BC4, 0x1AF1, 0x5E26, 0x3C4D, 0x789A, 0x47AC 
@@ -83,7 +84,7 @@ static u32 EK_d[16] =
 
 static void zuc_print(int num, const char *comment)
 {
-/*	if (comment != PNULL)
+	if (comment != nullptr)
 	{
 		printf("\n// %s", comment);
 	}
@@ -99,20 +100,20 @@ static void zuc_print(int num, const char *comment)
 	printf("LFSR_S12-S15 = %08X %08X %08X %08X\n", LFSR_S12, LFSR_S13, LFSR_S14, LFSR_S15);	
 	printf("F_R1-2 = %08X %08X\n", F_R1, F_R2);	
 	printf("BRC_X0-4 = %08X %08X %08X %08X\n", BRC_X0, BRC_X1, BRC_X2, BRC_X3);
-*/
+
 }
 
 /* c = a + b mod (2^31 ??1) */
-static u32 AddM(u32 a, u32 b)
+static uint32_t AddM(uint32_t a, uint32_t b)
 {
-    u32 c = a + b;
+    uint32_t c = a + b;
     return (c & 0x7FFFFFFF) + (c >> 31);
 }
 
 /* LFSR with initialization mode */
-static void LFSRWithInitialisationMode(u32 u)
+static void LFSRWithInitialisationMode(uint32_t u)
 {
-    u32 f, v;
+    uint32_t f, v;
     f = LFSR_S0;
     v = MulByPow2(LFSR_S0, 8);
     f = AddM(f, v);
@@ -147,7 +148,7 @@ static void LFSRWithInitialisationMode(u32 u)
 /* LFSR with work mode */
 static void LFSRWithWorkMode(void)
 {
-    u32 f, v;
+    uint32_t f, v;
     f = LFSR_S0;
     v = MulByPow2(LFSR_S0, 8);
     f = AddM(f, v);
@@ -188,21 +189,21 @@ static void BitReorganization(void)
 }
 
 /* L1 */
-static u32 L1(u32 X)
+static uint32_t L1(uint32_t X)
 {
     return (X ^ ROT(X, 2) ^ ROT(X, 10) ^ ROT(X, 18) ^ ROT(X, 24));
 }
 
 /* L2 */
-static u32 L2(u32 X)
+static uint32_t L2(uint32_t X)
 {
     return (X ^ ROT(X, 8) ^ ROT(X, 14) ^ ROT(X, 22) ^ ROT(X, 30));
 }
 
 /* F */
-static u32 F(void)
+static uint32_t F(void)
 {
-    u32 W, W1, W2, u, v;
+    uint32_t W, W1, W2, u, v;
     W = (BRC_X0 ^ F_R1) + F_R2;
     W1 = F_R1 + BRC_X1;
     W2 = F_R2 ^ BRC_X2;
@@ -216,9 +217,9 @@ static u32 F(void)
 }
 
 /* initialize */
-static void InitializationEea3(u8* k, u8* iv)
+static void InitializationEea3(uint8_t* k, uint8_t* iv)
 {
-    u32 w, nCount;
+    uint32_t w, nCount;
     /* expand key */
     LFSR_S0 = MAKEU31(k[0], EK_d[0], iv[0]);
     LFSR_S1 = MAKEU31(k[1], EK_d[1], iv[1]);
@@ -245,37 +246,34 @@ static void InitializationEea3(u8* k, u8* iv)
     zuc_print(0, "The initialization stage\n");	
     while (nCount > 0)
     {
-	BitReorganization();
-	w = F();
-	LFSRWithInitialisationMode(w >> 1);
-	nCount --;
-	zuc_print(31-nCount, nullptr);
+        BitReorganization();
+        w = F();
+        LFSRWithInitialisationMode(w >> 1);
+        nCount --;
+        zuc_print(31-nCount, nullptr);
     } 
 }
 
-static void GenerateKeystreamEea3(u32* pKeystream, int KeystreamLen)
+static void GenerateKeystreamEea3(uint32_t* pKeystream, int KeystreamLen)
 {
-    int i; 
-    {
 	BitReorganization();
 	F(); /* discard the output of F */ 
 	LFSRWithWorkMode();
-    }
 
     zuc_print(-1, "The working stage\n");
 
-    for (i = 0; i < KeystreamLen; i ++)
+    for (int i = 0; i < KeystreamLen; i ++)
     {
-	BitReorganization();
-	pKeystream[i] = F() ^ BRC_X3;
-	LFSRWithWorkMode();
-	zuc_print(i, nullptr);
+        BitReorganization();
+        pKeystream[i] = F() ^ BRC_X3;
+        LFSRWithWorkMode();
+        zuc_print(i, nullptr);
     }
 }
 
 
 /* The ZUC algorithm, see ref. [3]*/
-void ZUC(u8* k, u8* iv, u32* ks, int len)
+void ZUC(uint8_t* k, uint8_t* iv, uint32_t* ks, int len)
 {
     /* The initialization of ZUC */
     InitializationEea3(k, iv);

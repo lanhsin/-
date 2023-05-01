@@ -1,23 +1,22 @@
+#include "ZUC.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include "sec_type.h"
-#include "ZUC.h"
 
 //#define EEA3_PRINT
 //#define EEA3_PRINT_2
 
-void eea3(u8* key, u32 count, u32 bearer, u32 dir, u8* data, u32 length, u32 offset, u8* dataOut)
+void eea3(uint8_t* key, uint32_t count, uint32_t bearer, uint32_t dir, uint8_t* data, uint32_t length, uint32_t offset, uint8_t* dataOut)
 {
-	u32 *KS;
-	u8 IV[16];
+	uint32_t *KS;
+	uint8_t IV[16];
 	int h = 0, k = 0;
 	int i=0, j=0, m = 0;
 	
 	int n = (length + offset + 31)/32;
-	u32 endRes = ((length + offset) % 32) / 8;  //assume that the data is byte-aligned. 
-	u32 startPos = offset / 32, startRes = (offset % 32) / 8;
+	uint32_t endRes = ((length + offset) % 32) / 8;  //assume that the data is byte-aligned. 
+	uint32_t startPos = offset / 32, startRes = (offset % 32) / 8;
 
-	KS      = (u32 *) malloc(n*sizeof(u32));
+	KS      = (uint32_t *) malloc(n*sizeof(uint32_t));
 	IV[0]  = (count>>24) & 0xFF;
 	IV[1]  = (count>>16) & 0xFF;
 	IV[2]  = (count>>8) & 0xFF;
@@ -73,7 +72,7 @@ void eea3(u8* key, u32 count, u32 bearer, u32 dir, u8* data, u32 length, u32 off
 
 	for (j = h; j < k; j++, m++)
 	{
-	    dataOut[m] = data[m] ^ (u8)(*(KS+i)>>((3-j)*8));
+	    dataOut[m] = data[m] ^ (uint8_t)(*(KS+i)>>((3-j)*8));
 #ifdef EEA3_PRINT_2
 	    printf("%02X", dataOut[m]);
 #endif

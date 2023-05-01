@@ -120,13 +120,13 @@ SecTest_cmp_Outdata_from_mem(unsigned int WrAddr, const unsigned char* DataOut, 
 }
 
 
-static tBoolean 
+static bool 
 SecTest_Slave_mode(    struct_sec_reg_pattern *reg_pattern_p, 
                                 const struct_sec_test_case_macro *test_macro_p)
 {
     unsigned int retmac;
     SECURITY_Config_t cfg;
-    tBoolean bIntegrity = false;
+    bool bIntegrity = false;
 
     SEC_DMA_DESC *desc_p = (SEC_DMA_DESC *)test_macro_p->Descriptor_ptr;
 
@@ -171,7 +171,7 @@ SecTest_Slave_mode(    struct_sec_reg_pattern *reg_pattern_p,
 }
 
 
-static tBoolean  
+bool
 SecTest_Master_mode(  unsigned int StartIdx, unsigned int EndIdx,
                                 struct_sec_reg_pattern *reg_pattern_p,
                                 const struct_sec_test_case_macro *test_macro)
@@ -273,11 +273,11 @@ SecTest_fill_internal_struct( struct_sec_reg_pattern *reg_pattern,
 }
 
 
-static tBoolean 
+static bool 
 test_T17_01_Security(const struct_sec_test_case_macro *test_macro_p, unsigned int sizeOfdvtest)
 {
     unsigned int i, startIdx;
-    tBoolean bStart = false;
+    bool bStart = false;
 
     struct_sec_reg_pattern reg_pattern = {0};
 
@@ -325,10 +325,9 @@ test_T17_01_Security(const struct_sec_test_case_macro *test_macro_p, unsigned in
 }
 
 #ifndef ASIC2
-static tBoolean 
-test_T17_01_00(void)
+static bool test_T17_01_00(void)
 {
-    tBoolean result;
+    bool result;
     result = test_T17_01_Security(sec_fixed_S_macro_000, sizeof(sec_fixed_S_macro_000)/sizeof(sec_fixed_S_macro_000[0]));
     if(result == false)
         return result;
@@ -354,11 +353,9 @@ test_T17_01_00(void)
    return true;
 }
 
-static tBoolean 
-test_T17_01_01(void)
+static bool test_T17_01_01(void)
 {
-    tBoolean result;
-    result = test_T17_01_Security(sec_fixed_singleM_macro_000, sizeof(sec_fixed_singleM_macro_000)/sizeof(sec_fixed_singleM_macro_000[0]));
+    bool result = test_T17_01_Security(sec_fixed_singleM_macro_000, sizeof(sec_fixed_singleM_macro_000)/sizeof(sec_fixed_singleM_macro_000[0]));
     if(result == false)
         return result;
     result = test_T17_01_Security(sec_fixed_singleM_macro_001, sizeof(sec_fixed_singleM_macro_001)/sizeof(sec_fixed_singleM_macro_001[0]));
@@ -383,12 +380,9 @@ test_T17_01_01(void)
    return true;
 }
 
-static tBoolean 
-test_T17_01_02(void)
+static bool test_T17_01_02(void)
 {
-    tBoolean result;
-
-    result = test_T17_01_Security(sec_fixed_mM_macro_000, sizeof(sec_fixed_mM_macro_000)/sizeof(sec_fixed_mM_macro_000[0]));
+    bool result = test_T17_01_Security(sec_fixed_mM_macro_000, sizeof(sec_fixed_mM_macro_000)/sizeof(sec_fixed_mM_macro_000[0]));
     if(result == false)
         return result;
     result = test_T17_01_Security(sec_fixed_mM_macro_001, sizeof(sec_fixed_mM_macro_001)/sizeof(sec_fixed_mM_macro_001[0]));
@@ -415,11 +409,9 @@ test_T17_01_02(void)
     return true;
 }
 
-static tBoolean 
-test_T17_01_03(void)
+static bool test_T17_01_03(void)
 {
-    tBoolean result;
-    result = test_T17_01_Security(sec_random_S_macro_000, sizeof(sec_random_S_macro_000)/sizeof(sec_random_S_macro_000[0]));
+    bool result = test_T17_01_Security(sec_random_S_macro_000, sizeof(sec_random_S_macro_000)/sizeof(sec_random_S_macro_000[0]));
     if(result == false)
         return result;
     result = test_T17_01_Security(sec_random_S_macro_001, sizeof(sec_random_S_macro_001)/sizeof(sec_random_S_macro_001[0]));
@@ -453,11 +445,9 @@ test_T17_01_03(void)
    return true;
 }
 
-static tBoolean 
-test_T17_01_04(void)
+static bool test_T17_01_04(void)
 {
-    tBoolean result;
-    result = test_T17_01_Security(sec_random_singleM_macro_000, sizeof(sec_random_singleM_macro_000)/sizeof(sec_random_singleM_macro_000[0]));
+    bool result = test_T17_01_Security(sec_random_singleM_macro_000, sizeof(sec_random_singleM_macro_000)/sizeof(sec_random_singleM_macro_000[0]));
     if(result == false)
         return result;
     result = test_T17_01_Security(sec_random_singleM_macro_001, sizeof(sec_random_singleM_macro_001)/sizeof(sec_random_singleM_macro_001[0]));
@@ -473,12 +463,9 @@ test_T17_01_04(void)
    return true;
 }
 
-static tBoolean 
-test_T17_01_05(void)
+static bool test_T17_01_05(void)
 {
-    tBoolean result;
-
-    result = test_T17_01_Security(sec_random_mM_macro_000, sizeof(sec_random_mM_macro_000)/sizeof(sec_random_mM_macro_000[0]));
+    bool result = test_T17_01_Security(sec_random_mM_macro_000, sizeof(sec_random_mM_macro_000)/sizeof(sec_random_mM_macro_000[0]));
     if(result == false)
         return result;
     result = test_T17_01_Security(sec_random_mM_macro_001, sizeof(sec_random_mM_macro_001)/sizeof(sec_random_mM_macro_001[0]));
@@ -515,12 +502,9 @@ test_T17_01_05(void)
    return true;
 }
 
-static tBoolean 
-test_T17_01_06(void)
+static bool test_T17_01_06(void)
 {
-    tBoolean result;
-
-    result = test_T17_01_Security(sec_mix_MS_macro_000, sizeof(sec_mix_MS_macro_000)/sizeof(sec_mix_MS_macro_000[0]));
+    bool result = test_T17_01_Security(sec_mix_MS_macro_000, sizeof(sec_mix_MS_macro_000)/sizeof(sec_mix_MS_macro_000[0]));
     if(result == false)
         return result;
     result = test_T17_01_Security(sec_mix_MS_macro_001, sizeof(sec_mix_MS_macro_001)/sizeof(sec_mix_MS_macro_001[0]));
@@ -542,12 +526,9 @@ test_T17_01_06(void)
    return true;
 }
 
-static tBoolean 
-test_T17_01_07(void)
+static bool test_T17_01_07(void)
 {
-    tBoolean result;
-
-    result = test_T17_01_Security(sec_addr_unaligned_macro_000, sizeof(sec_addr_unaligned_macro_000)/sizeof(sec_addr_unaligned_macro_000[0]));
+    bool result = test_T17_01_Security(sec_addr_unaligned_macro_000, sizeof(sec_addr_unaligned_macro_000)/sizeof(sec_addr_unaligned_macro_000[0]));
     if(result == false)
         return result;
     result = test_T17_01_Security(sec_addr_unaligned_macro_001, sizeof(sec_addr_unaligned_macro_001)/sizeof(sec_addr_unaligned_macro_001[0]));
@@ -572,12 +553,9 @@ test_T17_01_07(void)
     return true;
 }
 
-static tBoolean 
-test_T17_01_08(void)
+static bool test_T17_01_08(void)
 {
-    tBoolean result;
-
-    result = test_T17_01_Security(sec_trx_fifo_macro_000, sizeof(sec_trx_fifo_macro_000)/sizeof(sec_trx_fifo_macro_000[0]));
+    bool result = test_T17_01_Security(sec_trx_fifo_macro_000, sizeof(sec_trx_fifo_macro_000)/sizeof(sec_trx_fifo_macro_000[0]));
     if(result == false)
         return result;
     result = test_T17_01_Security(sec_trx_fifo_macro_001, sizeof(sec_trx_fifo_macro_001)/sizeof(sec_trx_fifo_macro_001[0]));
@@ -617,12 +595,9 @@ test_T17_01_08(void)
    return true;
 }
 
-static tBoolean 
-test_T17_01_09(void)
+static bool test_T17_01_09(void)
 {
-    tBoolean result;
-
-    result = test_T17_01_Security(sec_random_S_unaligned_macro_000, sizeof(sec_random_S_unaligned_macro_000)/sizeof(sec_random_S_unaligned_macro_000[0]));
+    bool result = test_T17_01_Security(sec_random_S_unaligned_macro_000, sizeof(sec_random_S_unaligned_macro_000)/sizeof(sec_random_S_unaligned_macro_000[0]));
     if(result == false)
         return result;
     result = test_T17_01_Security(sec_random_S_unaligned_macro_001, sizeof(sec_random_S_unaligned_macro_001)/sizeof(sec_random_S_unaligned_macro_001[0]));

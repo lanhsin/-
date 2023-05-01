@@ -8,85 +8,85 @@
 #ifndef _SEC_REG_H_
 #define _SEC_REG_H_
 
-#include "sec_type.h"
+#include <cstdint>
 
-typedef struct SEC_CTRL_TAG
+struct SEC_CTRL
 {
     /* 0x0000_0000: CIPHER_MODE */
-    UINT32    cipher_mode:1;
-    UINT32    reserved0:31;     
+    uint32_t    cipher_mode:1;
+    uint32_t    reserved0:31;     
 
     /* 0x0000_0004: CIPHER_EN */
-    UINT32    cipher_en:1;
-    UINT32    reserved1:31;  
+    uint32_t    cipher_en:1;
+    uint32_t    reserved1:31;  
 
     /* 0x0000_0008: EEA_EIA_MODE */
     union
     {
-        UINT32  eea_eia_mode;
+        uint32_t  eea_eia_mode;
         struct
         {
-            UINT32    eia_mode:3;       /* 2:0 */
-            UINT32    reserved2:1;     /* 3 */
-            UINT32    eea_mode:2;      /* 5:4 */
-            UINT32    reserved3:26;   /* 31:6 */
+            uint32_t    eia_mode:3;       /* 2:0 */
+            uint32_t    reserved2:1;     /* 3 */
+            uint32_t    eea_mode:2;      /* 5:4 */
+            uint32_t    reserved3:26;   /* 31:6 */
         };
     };
     /* 0x0000_000C: EEA_KEY_0 */
-    UINT32    eea_Key0;
+    uint32_t    eea_Key0;
 
     /* 0x0000_0010: EEA_KEY_1 */
-    UINT32    eea_Key1;
+    uint32_t    eea_Key1;
 
     /* 0x0000_0014: EEA_KEY_2 */
-    UINT32    eea_Key2;
+    uint32_t    eea_Key2;
 
     /* 0x0000_0018: EEA_KEY_3 */
-    UINT32    eea_Key3;
+    uint32_t    eea_Key3;
 
     /* 0x0000_001C: EIA_KEY_0 */
-    UINT32    eia_Key0;
+    uint32_t    eia_Key0;
 
     /* 0x0000_0020: EIA_KEY_1 */
-    UINT32    eia_Key1;
+    uint32_t    eia_Key1;
 
     /* 0x0000_0024: EIA_KEY_2 */
-    UINT32    eia_Key2;
+    uint32_t    eia_Key2;
 
     /* 0x0000_0028: EIA_KEY_3 */
-    UINT32    eia_Key3;
+    uint32_t    eia_Key3;
 
     /* 0x0000_002C: COUNT */
-    UINT32    count;
+    uint32_t    count;
 
     /* 0x0000_0030: CONFIG */
     union
     {
-        UINT32    secCfg;
+        uint32_t    secCfg;
         struct
         {
-            UINT32    length : 16;          /* 15:0 */
-            UINT32    direction : 1;        /* 16 */
-            UINT32    bearer : 5;           /* 21:17 */
-            UINT32    last_package : 1; /* 22 */
-            UINT32    reserved4 : 1;      /* 23 */
-            UINT32    header_type : 2;  /* 25:24 */
-            UINT32    reserved5 : 6;      /* 31:26 */
+            uint32_t    length : 16;          /* 15:0 */
+            uint32_t    direction : 1;        /* 16 */
+            uint32_t    bearer : 5;           /* 21:17 */
+            uint32_t    last_package : 1; /* 22 */
+            uint32_t    reserved4 : 1;      /* 23 */
+            uint32_t    header_type : 2;  /* 25:24 */
+            uint32_t    reserved5 : 6;      /* 31:26 */
         };
     };
-} SEC_CTRL;
+};
 
-typedef struct TX_FIFO_INT_TAG
+struct TX_FIFO_INT
 {
-    UINT32    tx_almostempty : 1;
-    UINT32    tx_empty : 1;
-    UINT32    tx_almostfull : 1;
-    UINT32    tx_full : 1;
-    UINT32    reserved0 : 28;
-} TX_FIFO_INT;
+    uint32_t    tx_almostempty : 1;
+    uint32_t    tx_empty : 1;
+    uint32_t    tx_almostfull : 1;
+    uint32_t    tx_full : 1;
+    uint32_t    reserved0 : 28;
+};
 
 
-typedef struct SEC_INTR_TAG
+struct SEC_INTR
 {
     /* 0x004C -- 0x0054 */
     union
@@ -105,56 +105,56 @@ typedef struct SEC_INTR_TAG
         struct
         {
             /* 0x004C */
-            UINT32                int_raw;
+            uint32_t                int_raw;
 
             /* 0x0050 */
-            UINT32                int_mask;
+            uint32_t                int_mask;
 
             /* 0x0054 */
-            UINT32                int_sts;
+            uint32_t                int_sts;
         };
     };
-} SEC_INTR;
+};
 
 
 /* 0x0058 -- 0x006C */
-typedef struct SEC_FIFO_CTRL_TAG
+struct SEC_FIFO_CTRL
 {
     /* 0x0058 */
-    UINT32 rx_almostfull;
+    uint32_t rx_almostfull;
     /* 0x005C */
-    UINT32 rx_almostempty;
+    uint32_t rx_almostempty;
     /* 0x0060 */
-    UINT32 tx_almostfull;
+    uint32_t tx_almostfull;
     /* 0x0064 */
-    UINT32 tx_almostempty;
+    uint32_t tx_almostempty;
     /* 0x0068 */
-    UINT32 uplink_count : 16;
-    UINT32 reserved0 : 16;
+    uint32_t uplink_count : 16;
+    uint32_t reserved0 : 16;
     /* 0x006C */
-    UINT32 downlink_count : 16;
-    UINT32 reserved1 : 16;
-} SEC_FIFO_CTRL;
+    uint32_t downlink_count : 16;
+    uint32_t reserved1 : 16;
+};
 
 
-typedef struct SEC_INOUT_TAG
+struct SEC_INOUT
 {
     /* 0x00F0 */
-    UINT32  rd_addr;    
+    uint32_t  rd_addr;    
     /* 0x00F4 */
-    UINT32  wr_addr;    
+    uint32_t  wr_addr;    
     /* 0x00F8 */
-    UINT32  x_mac;
-} SEC_INOUT;
+    uint32_t  x_mac;
+};
 
 
-typedef struct SEC_REG_DESCRIPTION_TAG
+struct SEC_REG_DESCRIPTION
 {
     SEC_CTRL    *sec_ctrl_p;
     SEC_INTR    *sec_intr_p;
     SEC_FIFO_CTRL*sec_fifo_p;
     SEC_INOUT   *sec_inOut_p;
-} SEC_REG_DESCRIPTION;
+};
 
 
 #define SEC_DESC_SIZE                       44
@@ -163,32 +163,32 @@ typedef struct
 {
     union
     {
-        UINT32    descCfg;
+        uint32_t    descCfg;
         struct
         {
-            UINT16  eea_eia_mode: 5;
-            UINT16  mask: 4;
-            UINT16  last: 1;
-            UINT16  bearer: 5;
-            UINT16  direction:1;
-            UINT16  length;
+            uint16_t  eea_eia_mode: 5;
+            uint16_t  mask: 4;
+            uint16_t  last: 1;
+            uint16_t  bearer: 5;
+            uint16_t  direction:1;
+            uint16_t  length;
         };
     };
     
-    UINT32  count;
+    uint32_t  count;
 
-    UINT8  eea_Key3[4];
-    UINT8  eea_Key2[4];
-    UINT8  eea_Key1[4];
-    UINT8  eea_Key0[4];
+    uint8_t  eea_Key3[4];
+    uint8_t  eea_Key2[4];
+    uint8_t  eea_Key1[4];
+    uint8_t  eea_Key0[4];
 
-    UINT8  eia_Key3[4];
-    UINT8  eia_Key2[4];
-    UINT8  eia_Key1[4];
-    UINT8  eia_Key0[4];
+    uint8_t  eia_Key3[4];
+    uint8_t  eia_Key2[4];
+    uint8_t  eia_Key1[4];
+    uint8_t  eia_Key0[4];
 
-    UINT32  header_type: 2;
-    UINT32  reserved: 30;
+    uint32_t  header_type: 2;
+    uint32_t  reserved: 30;
 }SEC_DMA_DESC;
 
 
@@ -215,15 +215,15 @@ typedef struct
 #define secReg_get_dataOut(_reg)            (_reg->wr_addr)
 #define secReg_get_xMac(_reg)               (_reg->x_mac)
 
-extern void secReg_initialize (SEC_REG_DESCRIPTION *sec_reg_desc_p);
-extern void secReg_deinitialize(SEC_REG_DESCRIPTION *sec_reg_desc_p);
-extern void secReg_trigger_hw(UINT32 dataIn, UINT32 dataOut, SEC_INOUT *sec_inOut_p);
+void secReg_initialize (SEC_REG_DESCRIPTION *sec_reg_desc_p);
+void secReg_deinitialize(SEC_REG_DESCRIPTION *sec_reg_desc_p);
+void secReg_trigger_hw(uint32_t dataIn, uint32_t dataOut, SEC_INOUT *sec_inOut_p);
 
-extern void secReg_set_eea_key (SEC_CTRL *sec_ctrl_p, UINT32 key[]);
-extern void secReg_get_eea_key (SEC_CTRL *sec_ctrl_p, UINT32 key[]);
+void secReg_set_eea_key (SEC_CTRL *sec_ctrl_p, uint32_t key[]);
+void secReg_get_eea_key (SEC_CTRL *sec_ctrl_p, uint32_t key[]);
 
-extern void secReg_set_eia_key (SEC_CTRL *sec_ctrl_p, UINT32 key[]);
-extern void secReg_get_eia_key (SEC_CTRL *sec_ctrl_p, UINT32 key[]);
+void secReg_set_eia_key (SEC_CTRL *sec_ctrl_p, uint32_t key[]);
+void secReg_get_eia_key (SEC_CTRL *sec_ctrl_p, uint32_t key[]);
 
 
 #endif /* _SEC_REG_H_ */

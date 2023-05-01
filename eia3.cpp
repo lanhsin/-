@@ -1,14 +1,14 @@
+#include "ZUC.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include "sec_type.h"
-#include "ZUC.h"
+
 
 //#define EIA3_PRINT
 //#define EIA3_PRINT_2
 
-static u32 GET_WORD(u32 * DATA, u32 i)
+static uint32_t GET_WORD(uint32_t * DATA, uint32_t i)
 {
-	u32 WORD, ti;
+	uint32_t WORD, ti;
 	ti = i % 32;
 	if (ti == 0) {
 		WORD = DATA[i/32];
@@ -19,20 +19,20 @@ static u32 GET_WORD(u32 * DATA, u32 i)
 	return WORD;
 }
 
-static u8 GET_BIT(u8 * DATA, u32 i)
+static uint8_t GET_BIT(uint8_t * DATA, uint32_t i)
 {
 	return (DATA[i/8] & (1<<(7-(i%8)))) ? 1 : 0;
 }
 
-void eia3(UINT8 *key, INT32 count, INT32 bearer, INT32 dir, UINT8 *data, INT32 length, UINT8 *outMac)
+void eia3(uint8_t *key, int32_t count, int32_t bearer, int32_t dir, uint8_t *data, int32_t length, uint8_t *outMac)
 {
-	u32 *KS;
-	u32 L = (length+31) / 32 + 2; 
-	u32 T = 0, retMac = 0;
-	u32 i;
-	u8 IV[16];
+	uint32_t *KS;
+	uint32_t L = (length+31) / 32 + 2; 
+	uint32_t T = 0, retMac = 0;
+	uint32_t i;
+	uint8_t IV[16];
 	
-	KS      = (u32 *) malloc(L*sizeof(u32));
+	KS      = (uint32_t *) malloc(L*sizeof(uint32_t));
 	IV[0]  = (count>>24) & 0xFF;
 	IV[1]  = (count>>16) & 0xFF;
 	IV[2]  = (count>>8) & 0xFF;
@@ -96,7 +96,7 @@ void eia3(UINT8 *key, INT32 count, INT32 bearer, INT32 dir, UINT8 *data, INT32 l
 
 	for(i=0; i<4; i++)
 	{
-		outMac[i] = (u8)(retMac >> (3-i)*8 );
+		outMac[i] = (uint8_t)(retMac >> (3-i)*8 );
 	}
 
 

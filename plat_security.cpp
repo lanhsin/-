@@ -14,7 +14,7 @@
 #include "plat_security.h"
 
 
- void Plat_Security_SetDma_Mode(BOOL value)
+ void Plat_Security_SetDma_Mode(bool value)
 {
     SEC_SetDMA_Mode(value);
 }
@@ -45,7 +45,7 @@ void Plat_Security_SetCfg(SECURITY_Config_t *pCipher)
     if(WrAddr)
         SEC_SetWr_Addr(WrAddr);
 
-    SEC_SetCipher_Enable(TRUE);
+    SEC_SetCipher_Enable(true);
 }
 
 
@@ -58,7 +58,7 @@ void Plat_Security_SetMst(unsigned int RdAddr, unsigned int WrAddr)
     if(WrAddr)
         SEC_SetWr_Addr(WrAddr);
 
-    SEC_SetCipher_Enable(TRUE);
+    SEC_SetCipher_Enable(true);
 }
 
 
@@ -78,7 +78,7 @@ void Plat_Security_GetData(unsigned int* retMac)
 
         if(value)
         {
-            if(retMac != NULL)
+            if(retMac != nullptr)
             {
                 *retMac = SEC_GetMac_I();
             }

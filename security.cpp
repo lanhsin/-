@@ -5,14 +5,15 @@
  *      Author: Lanhsin
  */
 
-#include <stdlib.h>
-#include <string.h>
 #include "sysio.h"
 #include "security.h"
+#include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
 
-static void sec_eiaChoice(BOOL bMasterMode, cipherPara_S* psInPara)
+static void sec_eiaChoice(bool bMasterMode, cipherPara_S* psInPara)
 {
-    UINT8 *dataIn = psInPara->aData;
+    uint8_t *dataIn = psInPara->aData;
 
     if(bMasterMode)
         dataIn = dataIn + SEC_DESC_SIZE;
@@ -35,9 +36,9 @@ static void sec_eiaChoice(BOOL bMasterMode, cipherPara_S* psInPara)
     }
 }
 
-static void sec_eeaChoice(BOOL bMasterMode, cipherPara_S* psInPara)
+static void sec_eeaChoice(bool bMasterMode, cipherPara_S* psInPara)
 {
-    UINT8 *dataIn = psInPara->aData;
+    uint8_t *dataIn = psInPara->aData;
 
     if(bMasterMode)
         dataIn = dataIn + SEC_DESC_SIZE;
@@ -60,9 +61,9 @@ static void sec_eeaChoice(BOOL bMasterMode, cipherPara_S* psInPara)
     }
 }
 
-static void sec_para_print(BOOL bMasterMode, cipherPara_S *secPara_p)
+static void sec_para_print(bool bMasterMode, cipherPara_S *secPara_p)
 {
-    UINT32 i, j;
+    uint32_t i, j;
     
     printf("=========================================\n");
     printf("secPara_p->u32Len = %d\n", secPara_p->u32Len);
@@ -128,22 +129,21 @@ static void sec_para_print(BOOL bMasterMode, cipherPara_S *secPara_p)
 }
 
 
-void sec_get_dataOut(BOOL bMasterMode, cipherPara_S *secPara_p, SEC_INOUT *reg_inOut_p)
+void sec_get_dataOut(bool bMasterMode, cipherPara_S *secPara_p, SEC_INOUT *reg_inOut_p)
 {
-
-    UINT32 dataOut;
+    uint32_t dataOut;
 
     // get data
     if(bMasterMode)
         dataOut = secReg_get_dataOut(reg_inOut_p);
     else if(secPara_p->u32Mode & 0xF)
-        dataOut = (UINT32)(&secReg_get_xMac(reg_inOut_p));
-    else 
+        dataOut = (uint32_t)(&secReg_get_xMac(reg_inOut_p));
+    else
         dataOut = secReg_get_dataOut(reg_inOut_p);
 
     if(secPara_p->u32Mode & 0xF)
     {
-        memcpy( (UINT8 *)(&secReg_get_xMac(reg_inOut_p)), secPara_p->aMac, 4);
+        memcpy( (uint8_t *)(&secReg_get_xMac(reg_inOut_p)), secPara_p->aMac, 4);
         if(bMasterMode)
             write_mem( dataOut, secPara_p->aMac, 4);
     }
@@ -184,14 +184,14 @@ static void secReg_fill_content_from_ctrl_p(cipherPara_S *secPara_p, SEC_CTRL   
     secPara_p->u32Len = secReg_get_length(reg_ctrl_p);
     secPara_p->u32Offset = 0;
     // pass key
-    secReg_get_eea_key(reg_ctrl_p, (UINT32 *)(secPara_p->aEeaKey));
-    secReg_get_eia_key(reg_ctrl_p, (UINT32 *)(secPara_p->aEiaKey));
+    secReg_get_eea_key(reg_ctrl_p, (uint32_t *)(secPara_p->aEeaKey));
+    secReg_get_eia_key(reg_ctrl_p, (uint32_t *)(secPara_p->aEiaKey));
 }
 
 
 void sec_cipherSdu(cipherPara_S *secPara_p, SEC_CTRL    *reg_ctrl_p)
 {
-    BOOL bMasterMode = secReg_get_mode(reg_ctrl_p);
+    bool bMasterMode = secReg_get_mode(reg_ctrl_p);
     if(bMasterMode)
         secReg_fill_content_from_desc(secPara_p);
     else

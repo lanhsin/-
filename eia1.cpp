@@ -1,9 +1,8 @@
+#include "SNOW_3G.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <inttypes.h>
 #include <math.h>
-#include "sec_type.h"
-#include "SNOW_3G.h"
 
 //#define EIA1_PRINT
 /* print out switch */
@@ -13,7 +12,7 @@
 #define XIAOGANG 1
 
 #ifdef XIAOGANG
-u64     PM[8][256];
+uint64_t     PM[8][256];
 #endif
 
 /* MUL64x.
@@ -24,7 +23,7 @@ u64     PM[8][256];
 * function.
 * See section 4.3.2 for details.
 */
-static u64 MUL64x(u64 V, u64 c)
+static uint64_t MUL64x(uint64_t V, uint64_t c)
 {
 	if ( V & 0x8000000000000000 )
 		return (V << 1) ^ c;
@@ -40,7 +39,7 @@ static u64 MUL64x(u64 V, u64 c)
 function.
 * See section 4.3.3 for details.
 */
-static u64 MUL64xPOW(u64 V, u8 i, u64 c)
+static uint64_t MUL64xPOW(uint64_t V, uint8_t i, uint64_t c)
 {
 	if ( i == 0)
 		return V;
@@ -56,9 +55,9 @@ static u64 MUL64xPOW(u64 V, u8 i, u64 c)
 * function.
 * See section 4.3.4 for details.
 */
-static u64 MUL64(u64 V, u64 P, u64 c)
+static uint64_t MUL64(uint64_t V, uint64_t P, uint64_t c)
 {
-	u64 result = 0;
+	uint64_t result = 0;
 	int i = 0;
 	for ( i=0; i<64; i++)
 	{
@@ -72,9 +71,9 @@ static u64 MUL64(u64 V, u64 P, u64 c)
 * Output : a 32 bit mask.
 * Prepares a 32 bit mask with required number of 1 bits on the MSB side.
 */
-static u32 mask32bit(int n)
+static uint32_t mask32bit(int n)
 {
-	u32 mask=0x0;
+	uint32_t mask=0x0;
 	if ( n%32 == 0 )
 		return 0xffffffff;
 	while (n--)
@@ -84,10 +83,10 @@ static u32 mask32bit(int n)
 
 
 #ifdef XIAOGANG
-static void Pre_Mul_P(u64 P)
+static void Pre_Mul_P(uint64_t P)
 {
-    u8      i,j,k;
-    u64     r = 0x1b;
+    uint8_t      i,j,k;
+    uint64_t     r = 0x1b;
 
     for (i = 0; i < 8; i++)
     {
@@ -114,15 +113,15 @@ static void Pre_Mul_P(u64 P)
     }
 }
 
-static u64 Mul_P(u64 X)
+static uint64_t Mul_P(uint64_t X)
 {
-    u8      u8X[8];
-    u8      i;
-    u64     u64Out = 0;
+    uint8_t u8X[8];
+    uint8_t i;
+    uint64_t u64Out = 0;
 
     for (i=0; i<8; i++)
     {
-        u8X[i] = (u8)(X >> (64 - 8*(i+1)));
+        u8X[i] = (uint8_t)(X >> (64 - 8*(i+1)));
     }
     for (i=0; i<8; i++)
     {
@@ -146,22 +145,22 @@ static u64 Mul_P(u64 X)
 * Output : 32 bit block used as MAC
 * Generates 32-bit MAC using UIA2 algorithm as defined in Section 4.
 */
-static void f9( u8* key, int count, int fresh, int dir, u8 *data, u32 length, u8 *retMac)
+static void f9( uint8_t* key, int count, int fresh, int dir, uint8_t *data, uint32_t length, uint8_t *retMac)
 {
-	u32 K[4],IV[4], z[5];
-	u32 i=0,D,n_msg = (length+31)/32;
-	u32 MAC_I = 0; /* memory for the result */
-	u64 EVAL;
-	u64 V;
-	u64 P;
-	u64 Q;
-	u64 c;
-	u64 M_D_2;
+	uint32_t K[4],IV[4], z[5];
+	uint32_t i=0,D,n_msg = (length+31)/32;
+	uint32_t MAC_I = 0; /* memory for the result */
+	uint64_t EVAL;
+	uint64_t V;
+	uint64_t P;
+	uint64_t Q;
+	uint64_t c;
+	uint64_t M_D_2;
 	int rem_bits = 0;
-	u32 mask = 0;
-	u32 *message;
+	uint32_t mask = 0;
+	uint32_t *message;
 
-	message = (u32*)malloc(sizeof(u32)*n_msg);
+	message = (uint32_t*)malloc(sizeof(uint32_t)*n_msg);
 	for(i=0; i<n_msg; i++)
 	{/* To operate 32 bit message internally. */
 		*(message+i) = (data[i*4+0] << 24) + (data[i*4+1] << 16) + (data[i*4+2] << 8) + data[i*4+3]; 
@@ -211,8 +210,8 @@ static void f9( u8* key, int count, int fresh, int dir, u8 *data, u32 length, u8
 		}
 	#endif
 	//P = (z[0] << 32) + z[1];
-	P = (u64)z[0] << 32 | (u64)z[1];
-	Q = (u64)z[2] << 32 | (u64)z[3];
+	P = (uint64_t)z[0] << 32 | (uint64_t)z[1];
+	Q = (uint64_t)z[2] << 32 | (uint64_t)z[3];
 	/* Calculation */
 	D = (length+63)/64 + 1;
 	EVAL = 0;
@@ -226,7 +225,7 @@ static void f9( u8* key, int count, int fresh, int dir, u8 *data, u32 length, u8
 	/* for 0 <= i <= D-3 */
 	for (i=0;i<D-2;i++)
 	{
-		V = EVAL ^ ( (u64)message[2*i] << 32 | (u64)message[2*i+1] );
+		V = EVAL ^ ( (uint64_t)message[2*i] << 32 | (uint64_t)message[2*i+1] );
 #ifdef PRT
 		printf("V = 0x%016"PRIx64"", V>>32);
 		printf("0x%016"PRIx64"\n", V);
@@ -248,11 +247,11 @@ static void f9( u8* key, int count, int fresh, int dir, u8 *data, u32 length, u8
 	mask = mask32bit(rem_bits%32);
 	if (rem_bits > 32)
 	{
-		M_D_2 = ( (u64) message[2*(D-2)] << 32 ) | (u64) (message[2*(D-2)+1] & mask);
+		M_D_2 = ( (uint64_t) message[2*(D-2)] << 32 ) | (uint64_t) (message[2*(D-2)+1] & mask);
 	} 
 	else
 	{
-		M_D_2 = ( (u64) message[2*(D-2)] & mask) << 32 ;
+		M_D_2 = ( (uint64_t) message[2*(D-2)] & mask) << 32 ;
 	}
 //#ifdef PRT
 //	printf("M_D_2 = %x", M_D_2>>32);
@@ -280,7 +279,7 @@ static void f9( u8* key, int count, int fresh, int dir, u8 *data, u32 length, u8
 	printf("QEVAL = 0x%016"PRIx64"", EVAL>>32);
 	printf("0x%016"PRIx64"\n", EVAL);
 #endif
-	MAC_I = (u32)(EVAL >> 32) ^ z[4];
+	MAC_I = (uint32_t)(EVAL >> 32) ^ z[4];
 //#ifdef PRT
 //	for(i=0; i<5; i++)
 //	{
@@ -296,14 +295,14 @@ static void f9( u8* key, int count, int fresh, int dir, u8 *data, u32 length, u8
 	free(message);
 	for(i=0; i<4; i++)
 	{
-		retMac[i] = (u8)(MAC_I >> (3-i)*8 );
+		retMac[i] = (uint8_t)(MAC_I >> (3-i)*8 );
 	}
 	return;
 }
 
 /* EIA1 */
 /* FRESH [0], ...FRESH [31] shall be replaced by BEARER[0], ...BEARER[4]  | 0^27 */
-void eia1(UINT8 *key, INT32 count, INT32 bearer, INT32 dir, UINT8 *data, UINT32 length, UINT8 *retMac)
+void eia1(uint8_t *key, int32_t count, int32_t bearer, int32_t dir, uint8_t *data, uint32_t length, uint8_t *retMac)
 {
     int fresh=0;
 

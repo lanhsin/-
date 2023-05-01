@@ -1,8 +1,8 @@
+
+#include "SNOW_3G.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "sec_type.h"
-#include "SNOW_3G.h"
 
 //#define EEA1_PRINT
 //#define EEA1_PRINT_2
@@ -20,15 +20,15 @@
 * Encrypts/decrypts blocks of data between 1 and 20000 bits in length as
 * defined in Section 3.
 */
-void eea1( UINT8 *key, INT32 count, INT32 bearer, INT32 dir, UINT8 *data, INT32 length, UINT32 offset, UINT8 *dataOut)
+void eea1(uint8_t *key, int32_t count, int32_t bearer, int32_t dir, uint8_t *data, int32_t length, uint32_t offset, uint8_t *dataOut)
 {
-	u32 K[4],IV[4];
+	uint32_t K[4],IV[4];
 	int n = (length + offset  + 31 ) / 32, sum = 0;
 	int endRes = ((length + offset) % 32) / 8;  //assume that the data is byte-aligned. 
 	int startPos = offset / 32, startRes = (offset % 32) / 8;
 	int h = 0, k = 0;
 	int i=0, j=0, m = 0;
-	u32 *KS;
+	uint32_t *KS;
 	/*Initialisation*/
 	/* Load the confidentiality key for SNOW 3G initialization as in section
 	3.4. */
@@ -54,8 +54,8 @@ void eea1( UINT8 *key, INT32 count, INT32 bearer, INT32 dir, UINT8 *data, INT32 
 	/* Run SNOW 3G algorithm to generate sequence of key stream bits KS*/
 	Initialize(K,IV);
 
-	KS = (u32 *)malloc(4*n);
-	GenerateKeystream(n,(u32*)KS);
+	KS = (uint32_t *)malloc(4*n);
+	GenerateKeystream(n,(uint32_t*)KS);
 	/* Exclusive-OR the input data with keystream to generate the output bit stream */
 	#ifdef EEA1_PRINT_2
 		printf("EEA1 KS:\n");
@@ -73,7 +73,7 @@ void eea1( UINT8 *key, INT32 count, INT32 bearer, INT32 dir, UINT8 *data, INT32 
 #ifdef EEA1_PRINT_2
 	//	printf("%02X", (u8)(*(KS+i)>>((3-j)*8)));
 #endif
-		dataOut[m] = data[m] ^ (u8)(*(KS+i)>>((3-j)*8));
+		dataOut[m] = data[m] ^ (uint8_t)(*(KS+i)>>((3-j)*8));
 #ifdef EEA1_PRINT_2
 		printf("%02X", dataOut[m]);
 #endif

@@ -1,8 +1,7 @@
+#include "AES_Encrypt.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "sec_type.h"
-#include "AES_Encrypt.h"
 
 //#define EEA2_PRT    //flag of print eea2 information
 
@@ -19,26 +18,26 @@
  * Encrypts/decrypts blocks of data between 1 and 4k bits in length as
  * defined in Section 3.
  */
-static void eea2_128(UINT8 *key, INT32 count, INT32 bearer, INT32 dir, UINT8 *data, INT32 length, INT32 blkIdx, UINT32 offset, UINT8 *dataOut)
+static void eea2_128(uint8_t *key, int32_t count, int32_t bearer, int32_t dir, uint8_t *data, int32_t length, int32_t blkIdx, uint32_t offset, uint8_t *dataOut)
 {
 	int j, m = 0, n = 0;
-    u8 ctrBlkT[16];
-    u8 ksBlk[16];
+    uint8_t ctrBlkT[16];
+    uint8_t ksBlk[16];
 
- 	UINT32 total_len = length + offset;
-	UINT32 endPos = (total_len + 127) / 128 - 1, endRes = (total_len % 128) / 8 ;  //assume that the data is byte-aligned.
-	UINT32 startPos = offset / 128, startRes = (offset % 128) / 8;
-	UINT32 h = 0, k = 0;
+ 	uint32_t total_len = length + offset;
+	uint32_t endPos = (total_len + 127) / 128 - 1, endRes = (total_len % 128) / 8 ;  //assume that the data is byte-aligned.
+	uint32_t startPos = offset / 128, startRes = (offset % 128) / 8;
+	uint32_t h = 0, k = 0;
 
     for(j=0;j<16;j++)
     {
 	if (j<4)//count
 	{
-	    ctrBlkT[j] = (u8)(count>>(8*(3-j)));
+	    ctrBlkT[j] = (uint8_t)(count>>(8*(3-j)));
 	}
 	else if (j == 4)//bearer+dir
 	{
-	    ctrBlkT[j] = ((u8)bearer<<3) | ((u8)dir<<2);
+	    ctrBlkT[j] = ((uint8_t)bearer<<3) | ((uint8_t)dir<<2);
 	}
 	else if(j < 14)//0x00
 	{
@@ -48,15 +47,15 @@ static void eea2_128(UINT8 *key, INT32 count, INT32 bearer, INT32 dir, UINT8 *da
 	{
 	    if(blkIdx<256)
 	    {
-		ctrBlkT[14] = 0;
-		ctrBlkT[15] = blkIdx;
-		break;
+			ctrBlkT[14] = 0;
+			ctrBlkT[15] = blkIdx;
+			break;
 	    }
 	    else if (blkIdx >= 256)
 	    {
-		ctrBlkT[14] = blkIdx / 256;
-		ctrBlkT[15] = blkIdx % 256;
-		break;
+			ctrBlkT[14] = blkIdx / 256;
+			ctrBlkT[15] = blkIdx % 256;
+			break;
 	    }
 	}
     }
@@ -112,11 +111,11 @@ static void eea2_128(UINT8 *key, INT32 count, INT32 bearer, INT32 dir, UINT8 *da
 
 
 // eea2_128 function only processes one block data, so we need loop call it
-void eea2(UINT8 *key, INT32 count, INT32 bearer, INT32 dir, UINT8 *data, INT32 length, UINT32 offset, UINT8 *dataOut)
+void eea2(uint8_t *key, int32_t count, int32_t bearer, int32_t dir, uint8_t *data, int32_t length, uint32_t offset, uint8_t *dataOut)
 {
-	UINT32	i = 0;
-	UINT32	start_block = offset /128;
-	UINT32 	end_block = ( length + offset + 127 ) / 128 -1;
+	uint32_t i = 0;
+	uint32_t start_block = offset /128;
+	uint32_t end_block = ( length + offset + 127 ) / 128 -1;
 
 	for (i= start_block; i <= end_block; i++)
 	{

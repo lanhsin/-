@@ -1,7 +1,6 @@
+#include "AES_Encrypt.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "sec_type.h"
-#include "AES_Encrypt.h"
 
 // print for debug
 //#define prtDebug 1
@@ -109,7 +108,7 @@ static void padding ( unsigned char *lastb, unsigned char *pad, int length )
 		else if ((j+1)*8 > length && j*8 < length)
 		{
 			pad[j] = lastb[j];
-			pad[j] |= (u8)(1<<((j+1)*8 - length - 1));
+			pad[j] |= (uint8_t)(1<<((j+1)*8 - length - 1));
 		}
 		else if ( (j+1)*8 == length )
 		{
@@ -173,24 +172,24 @@ static void AES_CMAC ( unsigned char *key, unsigned char *input, int length, uns
 }
 
 
-void eia2(UINT8 *key, INT32 count, INT32 bearer, INT32 dir, UINT8 *data, INT32 length, UINT8 *outMac)
+void eia2(uint8_t *key, int32_t count, int32_t bearer, int32_t dir, uint8_t *data, int32_t length, uint8_t *outMac)
 {
 	int mLen = (length+64+7)/8;
 	int remainder128 = (length+64)%128;
 	int loopi = 0, loopj = 0;
 
-	u8 *M;
-	M = (u8*)malloc(mLen);
+	uint8_t *M;
+	M = (uint8_t*)malloc(mLen);
 	/* from count & bearer & dir & data generate M*/
 	for(loopi=0;loopi<mLen;loopi++) 
 	{
 		if (loopi<4)//count
 		{
-			M[loopi] = (u8)(count>>(8*(3-loopi)));
+			M[loopi] = (uint8_t)(count>>(8*(3-loopi)));
 		}
 		else if (loopi == 4)//bearer+dir
 		{
-			M[loopi] = ((u8)bearer<<3) | ((u8)dir<<2);
+			M[loopi] = ((uint8_t)bearer<<3) | ((uint8_t)dir<<2);
 		}
 		else if(loopi < 8)//0x00
 		{

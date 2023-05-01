@@ -4,11 +4,10 @@
  *  Created on: 12/03/2015
  *      Author: Lanhsin
  */
-#include <stdlib.h>
-#include <string.h>
 #include "sysio.h"
 #include "sec_reg.h"
-
+#include <stdlib.h>
+#include <string.h>
 
 void secReg_initialize (SEC_REG_DESCRIPTION *sec_reg_desc_p)
 {
@@ -33,14 +32,14 @@ void secReg_deinitialize(SEC_REG_DESCRIPTION *sec_reg_desc_p)
     free(sec_reg_desc_p->sec_inOut_p);
 }
 
-void secReg_trigger_hw(UINT32 dataIn, UINT32 dataOut, SEC_INOUT *sec_inOut_p)
+void secReg_trigger_hw(uint32_t dataIn, uint32_t dataOut, SEC_INOUT *sec_inOut_p)
 {
     secReg_set_dataIn(sec_inOut_p, dataIn);
     secReg_set_dataOut(sec_inOut_p, dataOut);
     secReg_set_xMac(sec_inOut_p, dataOut);
 }
 
-void secReg_set_eea_key (SEC_CTRL *sec_ctrl_p, UINT32 key[])
+void secReg_set_eea_key (SEC_CTRL *sec_ctrl_p, uint32_t key[])
 {
     sec_ctrl_p->eea_Key0 = key[0];
     sec_ctrl_p->eea_Key1 = key[1];
@@ -48,7 +47,7 @@ void secReg_set_eea_key (SEC_CTRL *sec_ctrl_p, UINT32 key[])
     sec_ctrl_p->eea_Key3 = key[3];
 }
 
-void secReg_get_eea_key (SEC_CTRL *sec_ctrl_p, UINT32 key[])
+void secReg_get_eea_key (SEC_CTRL *sec_ctrl_p, uint32_t key[])
 {
     key[0] = sec_ctrl_p->eea_Key0;
     key[1] = sec_ctrl_p->eea_Key1;
@@ -56,7 +55,7 @@ void secReg_get_eea_key (SEC_CTRL *sec_ctrl_p, UINT32 key[])
     key[3] = sec_ctrl_p->eea_Key3;
 }
 
-void secReg_set_eia_key (SEC_CTRL *sec_ctrl_p, UINT32 key[])
+void secReg_set_eia_key (SEC_CTRL *sec_ctrl_p, uint32_t key[])
 {
     sec_ctrl_p->eia_Key0 = key[0];
     sec_ctrl_p->eia_Key1 = key[1];
@@ -64,7 +63,7 @@ void secReg_set_eia_key (SEC_CTRL *sec_ctrl_p, UINT32 key[])
     sec_ctrl_p->eia_Key3 = key[3];
 }
 
-void secReg_get_eia_key (SEC_CTRL *sec_ctrl_p, UINT32 key[])
+void secReg_get_eia_key (SEC_CTRL *sec_ctrl_p, uint32_t key[])
 {
     key[0] = sec_ctrl_p->eia_Key0;
     key[1] = sec_ctrl_p->eia_Key1;

@@ -28,9 +28,7 @@ Find the Wikipedia page of AES at:
 http://en.wikipedia.org/wiki/Advanced_Encryption_Standard
  *******************************************************************/
 
-#include "sec_type.h"
 #include "AES_Encrypt.h"
-//#include "stdio.h"
 
 // The number of columns comprising a state in AES. This is a constant in AES. Value=4
 #define Nb 4
@@ -92,7 +90,7 @@ static int Rcon[255] = {
     0x61, 0xc2, 0x9f, 0x25, 0x4a, 0x94, 0x33, 0x66, 0xcc, 0x83, 0x1d, 0x3a, 0x74, 0xe8, 0xcb  };
 
 // This function produces Nb(Nr+1) round keys. The round keys are used in each round to encrypt the states. 
-static void KeyExpansion(int Nr, int Nk, u8* Key, u8* RoundKey)
+static void KeyExpansion(int Nr, int Nk, uint8_t* Key, uint8_t* RoundKey)
 {
     int i,j;
     unsigned char temp[4],k;
@@ -100,97 +98,96 @@ static void KeyExpansion(int Nr, int Nk, u8* Key, u8* RoundKey)
     // The first round key is the key itself.
     for(i=0;i<Nk;i++)
     {
-	RoundKey[i*4]=Key[i*4];
-	RoundKey[i*4+1]=Key[i*4+1];
-	RoundKey[i*4+2]=Key[i*4+2];
-	RoundKey[i*4+3]=Key[i*4+3];
+        RoundKey[i*4]=Key[i*4];
+        RoundKey[i*4+1]=Key[i*4+1];
+        RoundKey[i*4+2]=Key[i*4+2];
+        RoundKey[i*4+3]=Key[i*4+3];
     }
 
     // All other round keys are found from the previous round keys.
     while (i < (Nb * (Nr+1)))
     {
-	for(j=0;j<4;j++)
-	{
-	    temp[j]=RoundKey[(i-1) * 4 + j];
-	}
-	if (i % Nk == 0)
-	{
-	    // This function rotates the 4 bytes in a word to the left once.
-	    // [a0,a1,a2,a3] becomes [a1,a2,a3,a0]
+        for(j=0;j<4;j++)
+        {
+            temp[j]=RoundKey[(i-1) * 4 + j];
+        }
+        if (i % Nk == 0)
+        {
+            // This function rotates the 4 bytes in a word to the left once.
+            // [a0,a1,a2,a3] becomes [a1,a2,a3,a0]
 
-	    // Function RotWord()
-	    {
-		k = temp[0];
-		temp[0] = temp[1];
-		temp[1] = temp[2];
-		temp[2] = temp[3];
-		temp[3] = k;
-	    }
+            // Function RotWord()
+            {
+            k = temp[0];
+            temp[0] = temp[1];
+            temp[1] = temp[2];
+            temp[2] = temp[3];
+            temp[3] = k;
+            }
 
-	    // SubWord() is a function that takes a four-byte input word and 
-	    // applies the S-box to each of the four bytes to produce an output word.
+            // SubWord() is a function that takes a four-byte input word and 
+            // applies the S-box to each of the four bytes to produce an output word.
 
-	    // Function Subword()
-	    {
-		temp[0]=getSBoxValue(temp[0]);
-		temp[1]=getSBoxValue(temp[1]);
-		temp[2]=getSBoxValue(temp[2]);
-		temp[3]=getSBoxValue(temp[3]);
-	    }
+            // Function Subword()
+            {
+            temp[0]=getSBoxValue(temp[0]);
+            temp[1]=getSBoxValue(temp[1]);
+            temp[2]=getSBoxValue(temp[2]);
+            temp[3]=getSBoxValue(temp[3]);
+            }
 
-	    temp[0] =  temp[0] ^ Rcon[i/Nk];
-	}
-	else if (Nk > 6 && i % Nk == 4)
-	{
-	    // Function Subword()
-	    {
-		temp[0]=getSBoxValue(temp[0]);
-		temp[1]=getSBoxValue(temp[1]);
-		temp[2]=getSBoxValue(temp[2]);
-		temp[3]=getSBoxValue(temp[3]);
-	    }
-	}
-	RoundKey[i*4+0] = RoundKey[(i-Nk)*4+0] ^ temp[0];
-	RoundKey[i*4+1] = RoundKey[(i-Nk)*4+1] ^ temp[1];
-	RoundKey[i*4+2] = RoundKey[(i-Nk)*4+2] ^ temp[2];
-	RoundKey[i*4+3] = RoundKey[(i-Nk)*4+3] ^ temp[3];
-	i++;
+            temp[0] =  temp[0] ^ Rcon[i/Nk];
+        }
+        else if (Nk > 6 && i % Nk == 4)
+        {
+            // Function Subword()
+            {
+            temp[0]=getSBoxValue(temp[0]);
+            temp[1]=getSBoxValue(temp[1]);
+            temp[2]=getSBoxValue(temp[2]);
+            temp[3]=getSBoxValue(temp[3]);
+            }
+        }
+        RoundKey[i*4+0] = RoundKey[(i-Nk)*4+0] ^ temp[0];
+        RoundKey[i*4+1] = RoundKey[(i-Nk)*4+1] ^ temp[1];
+        RoundKey[i*4+2] = RoundKey[(i-Nk)*4+2] ^ temp[2];
+        RoundKey[i*4+3] = RoundKey[(i-Nk)*4+3] ^ temp[3];
+        i++;
     }
 }
 
 // This function adds the round key to state.
 // The round key is added to the state by an XOR function.
-static void AddRoundKey(int round, u8* RoundKey, u8 state[4][4]) 
+static void AddRoundKey(int round, uint8_t* RoundKey, uint8_t state[4][4]) 
 {
     int i,j;
     for(i=0;i<4;i++)
     {
-	for(j=0;j<4;j++)
-	{
-	    state[j][i] ^= RoundKey[round * Nb * 4 + i * Nb + j];
-	}
+        for(j=0;j<4;j++)
+        {
+            state[j][i] ^= RoundKey[round * Nb * 4 + i * Nb + j];
+        }
     }
 }
 
 // The SubBytes Function Substitutes the values in the
 // state matrix with values in an S-box.
-static void SubBytes(u8 state[4][4])
+static void SubBytes(uint8_t state[4][4])
 {
     int i,j;
     for(i=0;i<4;i++)
     {
-	for(j=0;j<4;j++)
-	{
-	    state[i][j] = getSBoxValue(state[i][j]);
-
-	}
+        for(j=0;j<4;j++)
+        {
+            state[i][j] = getSBoxValue(state[i][j]);
+        }
     }
 }
 
 // The ShiftRows() function shifts the rows in the state to the left.
 // Each row is shifted with different offset.
 // Offset = Row number. So the first row is not shifted.
-static void ShiftRows(u8 state[4][4])
+static void ShiftRows(uint8_t state[4][4])
 {
     unsigned char temp;
 
@@ -222,34 +219,33 @@ static void ShiftRows(u8 state[4][4])
 #define xtime(x)   ((x<<1) ^ (((x>>7) & 1) * 0x1b))
 
 // MixColumns function mixes the columns of the state matrix
-static void MixColumns(u8 state[4][4])
+static void MixColumns(uint8_t state[4][4])
 {
-    int i;
     unsigned char Tmp,Tm,t;
-    for(i=0;i<4;i++)
+    for(int i=0;i<4;i++)
     {	
-	t=state[0][i];
-	Tmp = state[0][i] ^ state[1][i] ^ state[2][i] ^ state[3][i] ;
-	Tm = state[0][i] ^ state[1][i] ; Tm = xtime(Tm); state[0][i] ^= Tm ^ Tmp ;
-	Tm = state[1][i] ^ state[2][i] ; Tm = xtime(Tm); state[1][i] ^= Tm ^ Tmp ;
-	Tm = state[2][i] ^ state[3][i] ; Tm = xtime(Tm); state[2][i] ^= Tm ^ Tmp ;
-	Tm = state[3][i] ^ t ; Tm = xtime(Tm); state[3][i] ^= Tm ^ Tmp ;
+        t=state[0][i];
+        Tmp = state[0][i] ^ state[1][i] ^ state[2][i] ^ state[3][i] ;
+        Tm = state[0][i] ^ state[1][i] ; Tm = xtime(Tm); state[0][i] ^= Tm ^ Tmp ;
+        Tm = state[1][i] ^ state[2][i] ; Tm = xtime(Tm); state[1][i] ^= Tm ^ Tmp ;
+        Tm = state[2][i] ^ state[3][i] ; Tm = xtime(Tm); state[2][i] ^= Tm ^ Tmp ;
+        Tm = state[3][i] ^ t ; Tm = xtime(Tm); state[3][i] ^= Tm ^ Tmp ;
     }
 }
 
 // Cipher is the main function that encrypts the PlainText.
-static void Cipher(int Nr, u8 *RoundKey, u8 *data, u8 *ret)
+static void Cipher(int Nr, uint8_t *RoundKey, uint8_t *data, uint8_t *ret)
 {
     int i,j,round=0;
-    u8 state[4][4];
+    uint8_t state[4][4];
 
     //Copy the input PlainText to state array.
     for(i=0;i<4;i++)
     {
-	for(j=0;j<4;j++)
-	{
-	    state[j][i] = data[i*4 + j];
-	}
+        for(j=0;j<4;j++)
+        {
+            state[j][i] = data[i*4 + j];
+        }
     }
 
     // Add the First round key to the state before starting the rounds.
@@ -257,11 +253,11 @@ static void Cipher(int Nr, u8 *RoundKey, u8 *data, u8 *ret)
     int m,n;
     for(m=0;m<4;m++)
     {
-	for(n=0;n<4;n++)
-	{
-	    //			printf("data[%d]=%02X\n",m*4+n,data[m*4+n]);
-	    //			printf("state[%d][%d]=%02X\n",m,n,state[m][n]);
-	}
+        for(n=0;n<4;n++)
+        {
+            //			printf("data[%d]=%02X\n",m*4+n,data[m*4+n]);
+            //			printf("state[%d][%d]=%02X\n",m,n,state[m][n]);
+        }
     }
 
     // There will be Nr rounds.
@@ -269,10 +265,10 @@ static void Cipher(int Nr, u8 *RoundKey, u8 *data, u8 *ret)
     // These Nr-1 rounds are executed in the loop below.
     for(round=1;round<Nr;round++)
     {
-	SubBytes(state);
-	ShiftRows(state);
-	MixColumns(state);
-	AddRoundKey(round, RoundKey, state);
+        SubBytes(state);
+        ShiftRows(state);
+        MixColumns(state);
+        AddRoundKey(round, RoundKey, state);
     }
 
     // The last round is given below.
@@ -285,20 +281,20 @@ static void Cipher(int Nr, u8 *RoundKey, u8 *data, u8 *ret)
     // Copy the state array to output array.
     for(i=0;i<4;i++)
     {
-	for(j=0;j<4;j++)
-	{
-	    ret[i*4+j]=state[j][i];
-	}
+        for(j=0;j<4;j++)
+        {
+            ret[i*4+j]=state[j][i];
+        }
     }
 }
 
-void getKS(u8 *key, u8 *data, u8 *ret)
+void getKS(uint8_t *key, uint8_t *data, uint8_t *ret)
 {
     int Nr = 128; // define Nr = 128, no need input.
     // Calculate Nk and Nr from the recieved value.
     int Nk = Nr / 32;
     // The array that stores the round keys.
-    static u8 RoundKey[240];
+    static uint8_t RoundKey[240];
 
     Nr = Nk + 6;
 

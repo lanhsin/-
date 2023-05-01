@@ -230,14 +230,14 @@ sec_virt_to_phys(unsigned int virt)
 
 
 inline void 
-SEC_SetDMA_Mode(tBoolean value)
+SEC_SetDMA_Mode(bool value)
 {
     HWREGB(REGS_ADDR_SEC_DMA_MODE) = value;
 }
 
 
 inline void 
-SEC_SetCipher_Enable(tBoolean value)
+SEC_SetCipher_Enable(bool value)
 {
     HWREGB(REGS_ADDR_SEC_EN) = value;
 }

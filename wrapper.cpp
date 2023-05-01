@@ -1,17 +1,17 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include "sysio.h"
 #include "security.h"
 #include "testpattern.h"
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 
-static void main_sec_process(FILE *file, cipherPara_S *sec_Para, SEC_REG_DESCRIPTION *sec_reg_desc)
+void main_sec_process(FILE *file, cipherPara_S *sec_Para, SEC_REG_DESCRIPTION *sec_reg_desc)
 {
-    UINT32                 idx = 0;
+    uint32_t idx = 0;
 
     if(secReg_get_mode(sec_reg_desc->sec_ctrl_p))
     {
-        UINT16 dataLen = 0;
+        uint16_t dataLen = 0;
         while(1){
             read_mem( secReg_get_dataIn(sec_reg_desc->sec_inOut_p), sec_Para->aData, 4);
 
@@ -21,7 +21,7 @@ static void main_sec_process(FILE *file, cipherPara_S *sec_Para, SEC_REG_DESCRIP
             
             sec_cipherSdu(sec_Para, sec_reg_desc->sec_ctrl_p);
             
-            sec_get_dataOut(TRUE, sec_Para, sec_reg_desc->sec_inOut_p);
+            sec_get_dataOut(true, sec_Para, sec_reg_desc->sec_inOut_p);
 
             //Shift to next dataIn ,Multiple of 4 for total dataIn len.
             secReg_set_dataIn(  sec_reg_desc->sec_inOut_p, 
@@ -48,15 +48,15 @@ static void main_sec_process(FILE *file, cipherPara_S *sec_Para, SEC_REG_DESCRIP
         
         sec_cipherSdu(sec_Para, sec_reg_desc->sec_ctrl_p);
 
-        sec_get_dataOut(FALSE, sec_Para, sec_reg_desc->sec_inOut_p);
+        sec_get_dataOut(false, sec_Para, sec_reg_desc->sec_inOut_p);
 
         if(sec_Para->u32Mode & 0xF)
         {
-            sec_log_file_dataOut(file, 0, 4, (UINT32)(&secReg_get_xMac(sec_reg_desc->sec_inOut_p)));
+            sec_log_file_dataOut(file, 0, 4, (uint32_t)(&secReg_get_xMac(sec_reg_desc->sec_inOut_p)));
             /* Copy result of integrity to DV team  */
             /* Don't touch the core                  */
-            memcpy( (UINT8 *)secReg_get_dataOut(sec_reg_desc->sec_inOut_p),
-                    (UINT8 *)(&secReg_get_xMac(sec_reg_desc->sec_inOut_p)), 4);
+            memcpy( (uint8_t *)secReg_get_dataOut(sec_reg_desc->sec_inOut_p),
+                    (uint8_t *)(&secReg_get_xMac(sec_reg_desc->sec_inOut_p)), 4);
         }            
         else
             sec_log_file_dataOut(   file, 0, 
@@ -100,8 +100,8 @@ struct test1{
 
 int main(void)
 {
-    UINT8 dataIn[MAX_DATA_LEN];
-    UINT8 dataOut[MAX_DATA_LEN];
+    uint8_t dataIn[MAX_DATA_LEN];
+    uint8_t dataOut[MAX_DATA_LEN];
     cipherPara_S           sec_Para;
     SEC_REG_DESCRIPTION    sec_reg_desc;
 
@@ -109,13 +109,13 @@ int main(void)
 
     secReg_initialize(&sec_reg_desc);
 
-    if(sec_log_file_load(0, &file) == FALSE)
+    if(sec_log_file_load(0, &file) == false)
     {
         secReg_deinitialize(&sec_reg_desc);
         return EXIT_FAILURE;
     }
 
-    if(sec_profile_read(dataIn, sec_reg_desc.sec_ctrl_p) == FALSE)
+    if(sec_profile_read(dataIn, sec_reg_desc.sec_ctrl_p) == false)
     {
         secReg_deinitialize(&sec_reg_desc);
         printf("lanhsin %d\n", __LINE__);
@@ -123,7 +123,7 @@ int main(void)
         return EXIT_FAILURE;
     }
 
-    secReg_trigger_hw((UINT32)dataIn,(UINT32)dataOut,sec_reg_desc.sec_inOut_p);
+    secReg_trigger_hw((uint32_t)dataIn,(uint32_t)dataOut,sec_reg_desc.sec_inOut_p);
 
     secReg_set_mode(sec_reg_desc.sec_ctrl_p, 0);
 

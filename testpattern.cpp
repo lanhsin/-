@@ -9,7 +9,7 @@
 #include <string.h>
 #include "security.h"
 
-BOOL sec_log_file_load(UINT32 file_seed, FILE **file)
+bool sec_log_file_load(uint32_t file_seed, FILE **file)
 {
     char file_name[50] = "sec_log_";
     sprintf(file_name+8, "%d", file_seed);
@@ -19,10 +19,10 @@ BOOL sec_log_file_load(UINT32 file_seed, FILE **file)
     if(*file == NULL)
     {
         printf("open sec_log file fail\n");
-        return FALSE;
+        return false;
     }
     else
-        return TRUE;
+        return true;
 }
 
 void sec_log_file_unload(FILE *file)
@@ -30,10 +30,10 @@ void sec_log_file_unload(FILE *file)
     fclose(file);
 }
 
-void sec_log_file_dataOut(FILE *file, UINT32 idx, UINT32 len, UINT32 dataOut)
+void sec_log_file_dataOut(FILE *file, uint32_t idx, uint32_t len, uint32_t dataOut)
 {
-    UINT32  i;
-    UINT8   *data_p = (UINT8 *)dataOut;
+    uint32_t  i;
+    uint8_t *data_p = (uint8_t *)dataOut;
 
     fprintf(file, "//Result %d\n", idx);
 
@@ -48,16 +48,16 @@ void sec_log_file_dataOut(FILE *file, UINT32 idx, UINT32 len, UINT32 dataOut)
     fprintf(file, "\n");
 }
 
-BOOL sec_profile_read (UINT8* dataIn, SEC_CTRL* reg_ctrl_p)
+bool sec_profile_read (uint8_t* dataIn, SEC_CTRL* reg_ctrl_p)
 {
-    FILE    *file;
-    UINT8 	key[16];
-    UINT32	i, u32buf;
-    UINT32	c;
+    FILE *file;
+    uint8_t key[16];
+    uint32_t i, u32buf;
+    uint32_t c;
 
     file = fopen("pattern_cmodel\\input.txt", "r");
     if(!file)
-        return FALSE;
+        return false;
 
     /* read Mode */
     fscanf(file, "%X", &u32buf);
@@ -79,13 +79,13 @@ BOOL sec_profile_read (UINT8* dataIn, SEC_CTRL* reg_ctrl_p)
     for (i=0; i<16; i++)
     {
         fscanf(file, "%02x", &c);
-        key[i] = (UINT8)c;
+        key[i] = (uint8_t)c;
     }
 
     if(secReg_get_cipher_mode(reg_ctrl_p)& 0xF)
-        secReg_set_eia_key(reg_ctrl_p, (UINT32 *)key);
+        secReg_set_eia_key(reg_ctrl_p, (uint32_t *)key);
     else
-        secReg_set_eea_key(reg_ctrl_p, (UINT32 *)key);
+        secReg_set_eea_key(reg_ctrl_p, (uint32_t *)key);
 
     /* read length */
     fscanf(file, "%08X", &u32buf);
@@ -95,37 +95,37 @@ BOOL sec_profile_read (UINT8* dataIn, SEC_CTRL* reg_ctrl_p)
     for (i = 0; i < (u32buf / 8); i++)
     {
         fscanf(file, "%02x", &c);
-        *dataIn= (UINT8)c;
+        *dataIn= (uint8_t)c;
         dataIn++;
     }
 
     fclose(file);
-    return TRUE;
+    return true;
 }
 
 
-BOOL sec_master_profile_read (UINT8* dataIn, SEC_CTRL* reg_ctrl_p)
+bool sec_master_profile_read (uint8_t* dataIn, SEC_CTRL* reg_ctrl_p)
 {
     FILE    *file;
-    UINT8   *write_p = dataIn;
-    UINT16  len;
-    UINT32	i, u32buf;
+    uint8_t   *write_p = dataIn;
+    uint16_t  len;
+    uint32_t	i, u32buf;
 
     file = fopen("input_master.txt", "r");
     if(!file)
-        return FALSE;
+        return false;
 
     while(fscanf(file, "%X", &u32buf) != EOF)
     {
         /* read Mode */
         len = ((u32buf & 0xffff0000) >> 16) >> 3;
 
-       *((UINT32 *)write_p) = u32buf;
+       *((uint32_t *)write_p) = u32buf;
         write_p += 4;
 
         /* read count */
         fscanf(file, "%X", &u32buf);
-        *((UINT32 *)write_p) = u32buf;
+        *((uint32_t *)write_p) = u32buf;
         write_p += 4;
 
         len = ((len + 3) >> 2) << 2;
@@ -133,7 +133,7 @@ BOOL sec_master_profile_read (UINT8* dataIn, SEC_CTRL* reg_ctrl_p)
         {
             fscanf(file, "%X", &u32buf);
     
-             *((UINT32 *)write_p)= ((u32buf & 0xff000000) >> 24) |
+             *((uint32_t *)write_p)= ((u32buf & 0xff000000) >> 24) |
                                    ((u32buf & 0x00ff0000) >> 8) |
                                    ((u32buf & 0x0000ff00) << 8) |
                                    ((u32buf & 0x000000ff) << 24);
@@ -142,7 +142,7 @@ BOOL sec_master_profile_read (UINT8* dataIn, SEC_CTRL* reg_ctrl_p)
     }
     printf("\n");
     fclose(file);
-    return TRUE;
+    return true;
 }
 
 
