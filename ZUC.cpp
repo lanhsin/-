@@ -249,7 +249,7 @@ static void InitializationEea3(u8* k, u8* iv)
 	w = F();
 	LFSRWithInitialisationMode(w >> 1);
 	nCount --;
-	zuc_print(31-nCount, PNULL);
+	zuc_print(31-nCount, nullptr);
     } 
 }
 
@@ -269,7 +269,7 @@ static void GenerateKeystreamEea3(u32* pKeystream, int KeystreamLen)
 	BitReorganization();
 	pKeystream[i] = F() ^ BRC_X3;
 	LFSRWithWorkMode();
-	zuc_print(i, PNULL);
+	zuc_print(i, nullptr);
     }
 }
 

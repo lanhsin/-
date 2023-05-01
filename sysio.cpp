@@ -5,6 +5,7 @@
  *      Author: Lanhsin.lin
  */
 #include "sysio.h"
+#include <cstring>
 
 /*
 *   Fpga    : Read register settings from real platfrom.
