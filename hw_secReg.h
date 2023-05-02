@@ -9,9 +9,9 @@
 /*******************************Start of Security Register Address *****************************/
 #if defined(ASIC2)
     #if defined(FPGA_SIM_RTK)
-        #define	SEC_MMR_PHYSICAL_BASE                                  (0x1C280000)
+        #define	SEC_MMR_PHYSICAL_BASE                         (0x1C280000)
     #else
-        #define	SEC_MMR_PHYSICAL_BASE                                  (0x40280000)
+        #define	SEC_MMR_PHYSICAL_BASE                         (0x40280000)
     #endif
 #else
 #define	SEC_MMR_PHYSICAL_BASE                                  (0x1C048000)
@@ -81,21 +81,6 @@
 /****************************End of TX_FIFO_INT mask and shift  *************************/
 
 
-//*****************************************************************************
-//
-// Define a boolean type, and values for true and false.
-//
-//*****************************************************************************
-typedef unsigned char tBoolean;
-
-#ifndef true
-#define true 1
-#endif
-
-#ifndef false
-#define false 0
-#endif
-
 
 //*****************************************************************************
 //
@@ -117,7 +102,6 @@ typedef unsigned char tBoolean;
 #define HWREGBITB(x, b)                                                       \
         HWREGB(((unsigned long)(x) & 0xF0000000) | 0x02000000 |               \
                (((unsigned long)(x) & 0x000FFFFF) << 5) | ((b) << 2))
-
 
 
 #endif /* _HW_SEC_REG_H_ */

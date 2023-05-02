@@ -276,7 +276,7 @@ def generate_header_file (data, block_names, test_case_range, test_name, file_in
         output(file_out, '  %s{' % (line_head))
         for block_name in block_names:
             if (block_name not in data.keys()) or (test_case_number not in data[block_name].keys()):
-                output(file_out, '        %5d, (%s)NULL,' % (0, type_pointer))
+                output(file_out, '        %5d, (%s)nullptr,' % (0, type_pointer))
             else:
                 output(file_out, '        %5d, (%s)(&(%s[0])),' % (get_block_size(data[block_name][test_case_number]), type_pointer, get_array_name(block_name, test_name, test_case_number)))
                 

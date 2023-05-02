@@ -5,10 +5,8 @@
 #ifndef _PLAT_SECURITY_H_
 #define _PLAT_SECURITY_H_
 
-#include "secReg.h"
-#include "sec_type.h"
 
-typedef enum
+enum SECURITY_Mode_t
 {
     SECURITY_MODE_NONE = 0x00
   , SECURITY_MODE_EIA1 = 0x02
@@ -17,9 +15,9 @@ typedef enum
   , SECURITY_MODE_EEA1 = 0x10
   , SECURITY_MODE_EEA2 = 0x20
   , SECURITY_MODE_EEA3 = 0x30
-} SECURITY_Mode_t;
+} ;
 
-typedef struct {
+struct SECURITY_Config_t {
     SECURITY_Mode_t sec_mode;
     unsigned char key[16];            // key
     unsigned int count;               // count
@@ -40,7 +38,7 @@ typedef struct {
     };
     unsigned char *src_data;
     unsigned char *dest_data;
-} SECURITY_Config_t;
+};
 
 void Plat_Security_SetDma_Mode(bool value);
 void Plat_Security_SetCfg(SECURITY_Config_t *pCipher);

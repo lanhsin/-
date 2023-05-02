@@ -4,8 +4,11 @@
  *  Created on: 12/06/2015
  *      Author: Lanhsin
  */
-#include <stdlib.h>
 #include "securityFpga.h"
+#include "plat_security.h"
+#include "hw_secReg.h"
+#include <stdlib.h>
+#include <stdio.h>
 
 #if defined(FPGA_SIM_RTK)
 #include "sysio.h"
@@ -21,12 +24,12 @@ SecTest_trans_InOutAddr_to_cfg( SECURITY_Config_t *cfg,
     if(test_macro_p->StartRdAddr_size)
         cfg->src_data = (unsigned char *)(reg_pattern_p->StartRdAddr);
     else
-        cfg->src_data = NULL;
+        cfg->src_data = nullptr;
 
     if(test_macro_p->StartWrAddr_size)
         cfg->dest_data = (unsigned char *)(reg_pattern_p->StartWrAddr);
     else
-        cfg->dest_data = NULL;
+        cfg->dest_data = nullptr;
 }
 
 static void
@@ -56,8 +59,7 @@ SecTest_trans_desc_to_cfg(SECURITY_Config_t *cfg,  SEC_DMA_DESC *desc_p)
     }
 }
 
-
-inline static void
+static void
 SecTest_write_Indata_to_mem(unsigned int RdAddr, const unsigned char* DataIn, unsigned int size)
 {
 
@@ -73,7 +75,7 @@ SecTest_write_Indata_to_mem(unsigned int RdAddr, const unsigned char* DataIn, un
 }
 
 
-inline static tBoolean
+static bool
 SecTest_cmp_Outdata_from_mem(unsigned int WrAddr, const unsigned char* DataOut, unsigned int size)
 {
     unsigned int i,j, remainding_len = size;
@@ -153,7 +155,7 @@ SecTest_Slave_mode(    struct_sec_reg_pattern *reg_pattern_p,
     if(bIntegrity)
         Plat_Security_GetData(&retmac);
     else
-        Plat_Security_GetData(NULL);
+        Plat_Security_GetData(nullptr);
 
     if(bIntegrity)
     {
@@ -195,7 +197,7 @@ SecTest_Master_mode(  unsigned int StartIdx, unsigned int EndIdx,
     }
 
     Plat_Security_SetMst(reg_pattern_p->StartRdAddr, reg_pattern_p->StartWrAddr);
-    Plat_Security_GetData(NULL);
+    Plat_Security_GetData(nullptr);
 
     /* Read data from StartWrAddr */
     for(i = StartIdx, read_p = reg_pattern_p->StartWrAddr; i < EndIdx; i++)
@@ -701,6 +703,3 @@ main(void)
 
     return EXIT_SUCCESS;
 }
-
-
-

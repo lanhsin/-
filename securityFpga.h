@@ -8,7 +8,7 @@
 #ifndef _SECURITY_FPGA_H_
 #define _SECURITY_FPGA_H_
 
-#include "plat_security.h"
+
 #include "pattern_fpga/sec_tp_types.h"
 #ifdef ASIC2
 #include "pattern_fpga/sec_fixed_S_v2_000.h"
@@ -103,9 +103,8 @@
 #include "pattern_fpga/sec_trx_fifo_010.h"
 #include "pattern_fpga/sec_trx_fifo_011.h"
 #endif
-#include "sec_type.h"
 
-typedef struct
+struct SEC_DMA_DESC
 {
     union
     {
@@ -135,6 +134,6 @@ typedef struct
 
     unsigned int  header_type: 2;
     unsigned int  reserved: 30;
-}SEC_DMA_DESC;
+};
 
 #endif

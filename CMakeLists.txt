@@ -29,9 +29,8 @@ set(fpga_srcs
     eia2.cpp
     eia3.cpp
     sysio.cpp
-    secReg.cpp
     plat_security.cpp
-    securityFPGA.cpp
+    securityFpga.cpp
     ) 
 
 add_executable(SecCmodel ${cmodle_srcs})

@@ -1,4 +1,3 @@
-#include "sec_type.h"
 #include "SNOW_3G.h"
 
 //#define SNOW_3G_PRINT

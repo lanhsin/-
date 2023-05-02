@@ -12,7 +12,7 @@
  * $Author$
  */
 #include "plat_security.h"
-
+#include "secReg.h"
 
  void Plat_Security_SetDma_Mode(bool value)
 {

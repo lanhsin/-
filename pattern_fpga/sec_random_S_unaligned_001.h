@@ -13760,10 +13760,10 @@ const static struct_sec_test_case_macro sec_random_S_unaligned_macro_001[] =
          7310, (const unsigned char *)(&(sec_random_S_unaligned_Data_Out_0035[0])),
     }
   , {
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartRdAddr_0036[0])),
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartWrAddr_0036[0])),
            44, (const unsigned char *)(&(sec_random_S_unaligned_Descriptor_0036[0])),
@@ -13771,10 +13771,10 @@ const static struct_sec_test_case_macro sec_random_S_unaligned_macro_001[] =
          3625, (const unsigned char *)(&(sec_random_S_unaligned_Data_Out_0036[0])),
     }
   , {
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartRdAddr_0037[0])),
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartWrAddr_0037[0])),
            44, (const unsigned char *)(&(sec_random_S_unaligned_Descriptor_0037[0])),
@@ -13782,10 +13782,10 @@ const static struct_sec_test_case_macro sec_random_S_unaligned_macro_001[] =
             4, (const unsigned char *)(&(sec_random_S_unaligned_Data_Out_0037[0])),
     }
   , {
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartRdAddr_0038[0])),
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartWrAddr_0038[0])),
            44, (const unsigned char *)(&(sec_random_S_unaligned_Descriptor_0038[0])),
@@ -13793,10 +13793,10 @@ const static struct_sec_test_case_macro sec_random_S_unaligned_macro_001[] =
             4, (const unsigned char *)(&(sec_random_S_unaligned_Data_Out_0038[0])),
     }
   , {
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartRdAddr_0039[0])),
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartWrAddr_0039[0])),
            44, (const unsigned char *)(&(sec_random_S_unaligned_Descriptor_0039[0])),
@@ -13804,10 +13804,10 @@ const static struct_sec_test_case_macro sec_random_S_unaligned_macro_001[] =
             4, (const unsigned char *)(&(sec_random_S_unaligned_Data_Out_0039[0])),
     }
   , {
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartRdAddr_0040[0])),
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartWrAddr_0040[0])),
            44, (const unsigned char *)(&(sec_random_S_unaligned_Descriptor_0040[0])),
@@ -13815,10 +13815,10 @@ const static struct_sec_test_case_macro sec_random_S_unaligned_macro_001[] =
             4, (const unsigned char *)(&(sec_random_S_unaligned_Data_Out_0040[0])),
     }
   , {
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartRdAddr_0041[0])),
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartWrAddr_0041[0])),
            44, (const unsigned char *)(&(sec_random_S_unaligned_Descriptor_0041[0])),
@@ -13826,10 +13826,10 @@ const static struct_sec_test_case_macro sec_random_S_unaligned_macro_001[] =
             4, (const unsigned char *)(&(sec_random_S_unaligned_Data_Out_0041[0])),
     }
   , {
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartRdAddr_0042[0])),
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartWrAddr_0042[0])),
            44, (const unsigned char *)(&(sec_random_S_unaligned_Descriptor_0042[0])),
@@ -13837,10 +13837,10 @@ const static struct_sec_test_case_macro sec_random_S_unaligned_macro_001[] =
             4, (const unsigned char *)(&(sec_random_S_unaligned_Data_Out_0042[0])),
     }
   , {
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartRdAddr_0043[0])),
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartWrAddr_0043[0])),
            44, (const unsigned char *)(&(sec_random_S_unaligned_Descriptor_0043[0])),
@@ -13848,10 +13848,10 @@ const static struct_sec_test_case_macro sec_random_S_unaligned_macro_001[] =
             4, (const unsigned char *)(&(sec_random_S_unaligned_Data_Out_0043[0])),
     }
   , {
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartRdAddr_0044[0])),
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartWrAddr_0044[0])),
            44, (const unsigned char *)(&(sec_random_S_unaligned_Descriptor_0044[0])),
@@ -13859,10 +13859,10 @@ const static struct_sec_test_case_macro sec_random_S_unaligned_macro_001[] =
          2348, (const unsigned char *)(&(sec_random_S_unaligned_Data_Out_0044[0])),
     }
   , {
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartRdAddr_0045[0])),
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartWrAddr_0045[0])),
            44, (const unsigned char *)(&(sec_random_S_unaligned_Descriptor_0045[0])),
@@ -13870,10 +13870,10 @@ const static struct_sec_test_case_macro sec_random_S_unaligned_macro_001[] =
          2711, (const unsigned char *)(&(sec_random_S_unaligned_Data_Out_0045[0])),
     }
   , {
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartRdAddr_0046[0])),
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartWrAddr_0046[0])),
            44, (const unsigned char *)(&(sec_random_S_unaligned_Descriptor_0046[0])),
@@ -13881,10 +13881,10 @@ const static struct_sec_test_case_macro sec_random_S_unaligned_macro_001[] =
             4, (const unsigned char *)(&(sec_random_S_unaligned_Data_Out_0046[0])),
     }
   , {
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartRdAddr_0047[0])),
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartWrAddr_0047[0])),
            44, (const unsigned char *)(&(sec_random_S_unaligned_Descriptor_0047[0])),
@@ -13892,10 +13892,10 @@ const static struct_sec_test_case_macro sec_random_S_unaligned_macro_001[] =
             4, (const unsigned char *)(&(sec_random_S_unaligned_Data_Out_0047[0])),
     }
   , {
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartRdAddr_0048[0])),
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartWrAddr_0048[0])),
            44, (const unsigned char *)(&(sec_random_S_unaligned_Descriptor_0048[0])),
@@ -13903,10 +13903,10 @@ const static struct_sec_test_case_macro sec_random_S_unaligned_macro_001[] =
             4, (const unsigned char *)(&(sec_random_S_unaligned_Data_Out_0048[0])),
     }
   , {
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartRdAddr_0049[0])),
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartWrAddr_0049[0])),
            44, (const unsigned char *)(&(sec_random_S_unaligned_Descriptor_0049[0])),
@@ -13914,10 +13914,10 @@ const static struct_sec_test_case_macro sec_random_S_unaligned_macro_001[] =
             4, (const unsigned char *)(&(sec_random_S_unaligned_Data_Out_0049[0])),
     }
   , {
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartRdAddr_0050[0])),
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartWrAddr_0050[0])),
            44, (const unsigned char *)(&(sec_random_S_unaligned_Descriptor_0050[0])),
@@ -13925,10 +13925,10 @@ const static struct_sec_test_case_macro sec_random_S_unaligned_macro_001[] =
             4, (const unsigned char *)(&(sec_random_S_unaligned_Data_Out_0050[0])),
     }
   , {
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartRdAddr_0051[0])),
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartWrAddr_0051[0])),
            44, (const unsigned char *)(&(sec_random_S_unaligned_Descriptor_0051[0])),
@@ -13936,10 +13936,10 @@ const static struct_sec_test_case_macro sec_random_S_unaligned_macro_001[] =
          2355, (const unsigned char *)(&(sec_random_S_unaligned_Data_Out_0051[0])),
     }
   , {
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartRdAddr_0052[0])),
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartWrAddr_0052[0])),
            44, (const unsigned char *)(&(sec_random_S_unaligned_Descriptor_0052[0])),
@@ -13947,10 +13947,10 @@ const static struct_sec_test_case_macro sec_random_S_unaligned_macro_001[] =
             4, (const unsigned char *)(&(sec_random_S_unaligned_Data_Out_0052[0])),
     }
   , {
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartRdAddr_0053[0])),
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartWrAddr_0053[0])),
            44, (const unsigned char *)(&(sec_random_S_unaligned_Descriptor_0053[0])),
@@ -13958,10 +13958,10 @@ const static struct_sec_test_case_macro sec_random_S_unaligned_macro_001[] =
             4, (const unsigned char *)(&(sec_random_S_unaligned_Data_Out_0053[0])),
     }
   , {
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartRdAddr_0054[0])),
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartWrAddr_0054[0])),
            44, (const unsigned char *)(&(sec_random_S_unaligned_Descriptor_0054[0])),
@@ -13969,10 +13969,10 @@ const static struct_sec_test_case_macro sec_random_S_unaligned_macro_001[] =
             4, (const unsigned char *)(&(sec_random_S_unaligned_Data_Out_0054[0])),
     }
   , {
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartRdAddr_0055[0])),
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartWrAddr_0055[0])),
            44, (const unsigned char *)(&(sec_random_S_unaligned_Descriptor_0055[0])),
@@ -13980,10 +13980,10 @@ const static struct_sec_test_case_macro sec_random_S_unaligned_macro_001[] =
             4, (const unsigned char *)(&(sec_random_S_unaligned_Data_Out_0055[0])),
     }
   , {
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartRdAddr_0056[0])),
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartWrAddr_0056[0])),
            44, (const unsigned char *)(&(sec_random_S_unaligned_Descriptor_0056[0])),
@@ -13991,10 +13991,10 @@ const static struct_sec_test_case_macro sec_random_S_unaligned_macro_001[] =
             4, (const unsigned char *)(&(sec_random_S_unaligned_Data_Out_0056[0])),
     }
   , {
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartRdAddr_0057[0])),
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartWrAddr_0057[0])),
            44, (const unsigned char *)(&(sec_random_S_unaligned_Descriptor_0057[0])),
@@ -14002,10 +14002,10 @@ const static struct_sec_test_case_macro sec_random_S_unaligned_macro_001[] =
             4, (const unsigned char *)(&(sec_random_S_unaligned_Data_Out_0057[0])),
     }
   , {
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartRdAddr_0058[0])),
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartWrAddr_0058[0])),
            44, (const unsigned char *)(&(sec_random_S_unaligned_Descriptor_0058[0])),
@@ -14013,10 +14013,10 @@ const static struct_sec_test_case_macro sec_random_S_unaligned_macro_001[] =
             4, (const unsigned char *)(&(sec_random_S_unaligned_Data_Out_0058[0])),
     }
   , {
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartRdAddr_0059[0])),
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartWrAddr_0059[0])),
            44, (const unsigned char *)(&(sec_random_S_unaligned_Descriptor_0059[0])),
@@ -14024,10 +14024,10 @@ const static struct_sec_test_case_macro sec_random_S_unaligned_macro_001[] =
             4, (const unsigned char *)(&(sec_random_S_unaligned_Data_Out_0059[0])),
     }
   , {
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartRdAddr_0060[0])),
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartWrAddr_0060[0])),
            44, (const unsigned char *)(&(sec_random_S_unaligned_Descriptor_0060[0])),
@@ -14035,10 +14035,10 @@ const static struct_sec_test_case_macro sec_random_S_unaligned_macro_001[] =
             4, (const unsigned char *)(&(sec_random_S_unaligned_Data_Out_0060[0])),
     }
   , {
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartRdAddr_0061[0])),
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartWrAddr_0061[0])),
            44, (const unsigned char *)(&(sec_random_S_unaligned_Descriptor_0061[0])),
@@ -14046,10 +14046,10 @@ const static struct_sec_test_case_macro sec_random_S_unaligned_macro_001[] =
           851, (const unsigned char *)(&(sec_random_S_unaligned_Data_Out_0061[0])),
     }
   , {
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartRdAddr_0062[0])),
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartWrAddr_0062[0])),
            44, (const unsigned char *)(&(sec_random_S_unaligned_Descriptor_0062[0])),
@@ -14057,10 +14057,10 @@ const static struct_sec_test_case_macro sec_random_S_unaligned_macro_001[] =
          3075, (const unsigned char *)(&(sec_random_S_unaligned_Data_Out_0062[0])),
     }
   , {
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartRdAddr_0063[0])),
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartWrAddr_0063[0])),
            44, (const unsigned char *)(&(sec_random_S_unaligned_Descriptor_0063[0])),
@@ -14068,10 +14068,10 @@ const static struct_sec_test_case_macro sec_random_S_unaligned_macro_001[] =
             4, (const unsigned char *)(&(sec_random_S_unaligned_Data_Out_0063[0])),
     }
   , {
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartRdAddr_0064[0])),
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartWrAddr_0064[0])),
            44, (const unsigned char *)(&(sec_random_S_unaligned_Descriptor_0064[0])),
@@ -14079,10 +14079,10 @@ const static struct_sec_test_case_macro sec_random_S_unaligned_macro_001[] =
             4, (const unsigned char *)(&(sec_random_S_unaligned_Data_Out_0064[0])),
     }
   , {
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartRdAddr_0065[0])),
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartWrAddr_0065[0])),
            44, (const unsigned char *)(&(sec_random_S_unaligned_Descriptor_0065[0])),
@@ -14090,10 +14090,10 @@ const static struct_sec_test_case_macro sec_random_S_unaligned_macro_001[] =
             4, (const unsigned char *)(&(sec_random_S_unaligned_Data_Out_0065[0])),
     }
   , {
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartRdAddr_0066[0])),
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartWrAddr_0066[0])),
            44, (const unsigned char *)(&(sec_random_S_unaligned_Descriptor_0066[0])),
@@ -14101,10 +14101,10 @@ const static struct_sec_test_case_macro sec_random_S_unaligned_macro_001[] =
             4, (const unsigned char *)(&(sec_random_S_unaligned_Data_Out_0066[0])),
     }
   , {
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartRdAddr_0067[0])),
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartWrAddr_0067[0])),
            44, (const unsigned char *)(&(sec_random_S_unaligned_Descriptor_0067[0])),
@@ -14112,10 +14112,10 @@ const static struct_sec_test_case_macro sec_random_S_unaligned_macro_001[] =
             4, (const unsigned char *)(&(sec_random_S_unaligned_Data_Out_0067[0])),
     }
   , {
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartRdAddr_0068[0])),
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartWrAddr_0068[0])),
            44, (const unsigned char *)(&(sec_random_S_unaligned_Descriptor_0068[0])),
@@ -14123,10 +14123,10 @@ const static struct_sec_test_case_macro sec_random_S_unaligned_macro_001[] =
             4, (const unsigned char *)(&(sec_random_S_unaligned_Data_Out_0068[0])),
     }
   , {
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartRdAddr_0069[0])),
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartWrAddr_0069[0])),
            44, (const unsigned char *)(&(sec_random_S_unaligned_Descriptor_0069[0])),
@@ -14134,10 +14134,10 @@ const static struct_sec_test_case_macro sec_random_S_unaligned_macro_001[] =
             4, (const unsigned char *)(&(sec_random_S_unaligned_Data_Out_0069[0])),
     }
   , {
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartRdAddr_0070[0])),
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartWrAddr_0070[0])),
            44, (const unsigned char *)(&(sec_random_S_unaligned_Descriptor_0070[0])),
@@ -14145,10 +14145,10 @@ const static struct_sec_test_case_macro sec_random_S_unaligned_macro_001[] =
             4, (const unsigned char *)(&(sec_random_S_unaligned_Data_Out_0070[0])),
     }
   , {
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartRdAddr_0071[0])),
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartWrAddr_0071[0])),
            44, (const unsigned char *)(&(sec_random_S_unaligned_Descriptor_0071[0])),
@@ -14156,10 +14156,10 @@ const static struct_sec_test_case_macro sec_random_S_unaligned_macro_001[] =
             4, (const unsigned char *)(&(sec_random_S_unaligned_Data_Out_0071[0])),
     }
   , {
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartRdAddr_0072[0])),
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartWrAddr_0072[0])),
            44, (const unsigned char *)(&(sec_random_S_unaligned_Descriptor_0072[0])),
@@ -14167,10 +14167,10 @@ const static struct_sec_test_case_macro sec_random_S_unaligned_macro_001[] =
          4018, (const unsigned char *)(&(sec_random_S_unaligned_Data_Out_0072[0])),
     }
   , {
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartRdAddr_0073[0])),
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartWrAddr_0073[0])),
            44, (const unsigned char *)(&(sec_random_S_unaligned_Descriptor_0073[0])),
@@ -14178,10 +14178,10 @@ const static struct_sec_test_case_macro sec_random_S_unaligned_macro_001[] =
             4, (const unsigned char *)(&(sec_random_S_unaligned_Data_Out_0073[0])),
     }
   , {
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartRdAddr_0074[0])),
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartWrAddr_0074[0])),
            44, (const unsigned char *)(&(sec_random_S_unaligned_Descriptor_0074[0])),
@@ -14189,10 +14189,10 @@ const static struct_sec_test_case_macro sec_random_S_unaligned_macro_001[] =
             4, (const unsigned char *)(&(sec_random_S_unaligned_Data_Out_0074[0])),
     }
   , {
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartRdAddr_0075[0])),
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartWrAddr_0075[0])),
            44, (const unsigned char *)(&(sec_random_S_unaligned_Descriptor_0075[0])),
@@ -14200,10 +14200,10 @@ const static struct_sec_test_case_macro sec_random_S_unaligned_macro_001[] =
             4, (const unsigned char *)(&(sec_random_S_unaligned_Data_Out_0075[0])),
     }
   , {
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartRdAddr_0076[0])),
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartWrAddr_0076[0])),
            44, (const unsigned char *)(&(sec_random_S_unaligned_Descriptor_0076[0])),
@@ -14211,10 +14211,10 @@ const static struct_sec_test_case_macro sec_random_S_unaligned_macro_001[] =
             4, (const unsigned char *)(&(sec_random_S_unaligned_Data_Out_0076[0])),
     }
   , {
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartRdAddr_0077[0])),
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartWrAddr_0077[0])),
            44, (const unsigned char *)(&(sec_random_S_unaligned_Descriptor_0077[0])),
@@ -14222,10 +14222,10 @@ const static struct_sec_test_case_macro sec_random_S_unaligned_macro_001[] =
          4138, (const unsigned char *)(&(sec_random_S_unaligned_Data_Out_0077[0])),
     }
   , {
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartRdAddr_0078[0])),
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartWrAddr_0078[0])),
            44, (const unsigned char *)(&(sec_random_S_unaligned_Descriptor_0078[0])),
@@ -14233,10 +14233,10 @@ const static struct_sec_test_case_macro sec_random_S_unaligned_macro_001[] =
             4, (const unsigned char *)(&(sec_random_S_unaligned_Data_Out_0078[0])),
     }
   , {
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartRdAddr_0079[0])),
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartWrAddr_0079[0])),
            44, (const unsigned char *)(&(sec_random_S_unaligned_Descriptor_0079[0])),
@@ -14244,10 +14244,10 @@ const static struct_sec_test_case_macro sec_random_S_unaligned_macro_001[] =
             4, (const unsigned char *)(&(sec_random_S_unaligned_Data_Out_0079[0])),
     }
   , {
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
-            0, (const unsigned char *)NULL,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
+            0, (const unsigned char *)nullptr,
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartRdAddr_0080[0])),
             4, (const unsigned char *)(&(sec_random_S_unaligned_StartWrAddr_0080[0])),
            44, (const unsigned char *)(&(sec_random_S_unaligned_Descriptor_0080[0])),
