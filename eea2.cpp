@@ -18,9 +18,9 @@
  * Encrypts/decrypts blocks of data between 1 and 4k bits in length as
  * defined in Section 3.
  */
-static void eea2_128(uint8_t *key, int32_t count, int32_t bearer, int32_t dir, uint8_t *data, int32_t length, int32_t blkIdx, uint32_t offset, uint8_t *dataOut)
+static void eea2_128(uint8_t *key, int32_t count, int32_t bearer, int32_t dir, uint8_t *data, uint32_t length, uint32_t blkIdx, uint32_t offset, uint8_t *dataOut)
 {
-	int j, m = 0, n = 0;
+	uint32_t j, m = 0, n = 0;
     uint8_t ctrBlkT[16];
     uint8_t ksBlk[16];
 
@@ -90,8 +90,8 @@ static void eea2_128(uint8_t *key, int32_t count, int32_t bearer, int32_t dir, u
 #endif
 
     h = (blkIdx == startPos) ? startRes : 0;
-	k = (blkIdx == endPos) ? ((endRes == 0) ? 16 : endRes) : 16;
-      n = (blkIdx == startPos) ? 0:((16-startRes) + (blkIdx -startPos -1)*16);
+    k = (blkIdx == endPos) ? ((endRes == 0) ? 16 : endRes) : 16;
+    n = (blkIdx == startPos) ? 0:((16-startRes) + (blkIdx -startPos -1)*16);
 
 #ifdef EEA2_PRT
 	 printf("EEA2	Ciphertext block%d:\n", blkIdx);
@@ -111,7 +111,7 @@ static void eea2_128(uint8_t *key, int32_t count, int32_t bearer, int32_t dir, u
 
 
 // eea2_128 function only processes one block data, so we need loop call it
-void eea2(uint8_t *key, int32_t count, int32_t bearer, int32_t dir, uint8_t *data, int32_t length, uint32_t offset, uint8_t *dataOut)
+void eea2(uint8_t *key, int32_t count, int32_t bearer, int32_t dir, uint8_t *data, uint32_t length, uint32_t offset, uint8_t *dataOut)
 {
 	uint32_t i = 0;
 	uint32_t start_block = offset /128;

@@ -24,7 +24,7 @@ static uint8_t GET_BIT(uint8_t * DATA, uint32_t i)
 	return (DATA[i/8] & (1<<(7-(i%8)))) ? 1 : 0;
 }
 
-void eia3(uint8_t *key, int32_t count, int32_t bearer, int32_t dir, uint8_t *data, int32_t length, uint8_t *outMac)
+void eia3(uint8_t *key, int32_t count, int32_t bearer, int32_t dir, uint8_t *data, uint32_t length, uint8_t *outMac)
 {
 	uint32_t *KS;
 	uint32_t L = (length+31) / 32 + 2; 

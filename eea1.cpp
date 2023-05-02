@@ -20,14 +20,14 @@
 * Encrypts/decrypts blocks of data between 1 and 20000 bits in length as
 * defined in Section 3.
 */
-void eea1(uint8_t *key, int32_t count, int32_t bearer, int32_t dir, uint8_t *data, int32_t length, uint32_t offset, uint8_t *dataOut)
+void eea1(uint8_t *key, int32_t count, int32_t bearer, int32_t dir, uint8_t *data, uint32_t length, uint32_t offset, uint8_t *dataOut)
 {
 	uint32_t K[4],IV[4];
-	int n = (length + offset  + 31 ) / 32, sum = 0;
-	int endRes = ((length + offset) % 32) / 8;  //assume that the data is byte-aligned. 
-	int startPos = offset / 32, startRes = (offset % 32) / 8;
-	int h = 0, k = 0;
-	int i=0, j=0, m = 0;
+	uint32_t n = (length + offset  + 31 ) / 32, sum = 0;
+	uint32_t endRes = ((length + offset) % 32) / 8;  //assume that the data is byte-aligned. 
+	uint32_t startPos = offset / 32, startRes = (offset % 32) / 8;
+	uint32_t h = 0, k = 0;
+	uint32_t i = 0, j = 0, m = 0;
 	uint32_t *KS;
 	/*Initialisation*/
 	/* Load the confidentiality key for SNOW 3G initialization as in section

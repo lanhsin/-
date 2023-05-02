@@ -172,7 +172,7 @@ static void AES_CMAC ( unsigned char *key, unsigned char *input, int length, uns
 }
 
 
-void eia2(uint8_t *key, int32_t count, int32_t bearer, int32_t dir, uint8_t *data, int32_t length, uint8_t *outMac)
+void eia2(uint8_t *key, int32_t count, int32_t bearer, int32_t dir, uint8_t *data, uint32_t length, uint8_t *outMac)
 {
 	int mLen = (length+64+7)/8;
 	int remainder128 = (length+64)%128;

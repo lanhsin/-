@@ -9,10 +9,10 @@ void eea3(uint8_t* key, uint32_t count, uint32_t bearer, uint32_t dir, uint8_t* 
 {
 	uint32_t *KS;
 	uint8_t IV[16];
-	int h = 0, k = 0;
-	int i=0, j=0, m = 0;
+	uint32_t h = 0, k = 0;
+	uint32_t i=0, j=0, m = 0;
 	
-	int n = (length + offset + 31)/32;
+	uint32_t n = (length + offset + 31)/32;
 	uint32_t endRes = ((length + offset) % 32) / 8;  //assume that the data is byte-aligned. 
 	uint32_t startPos = offset / 32, startRes = (offset % 32) / 8;
 

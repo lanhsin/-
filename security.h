@@ -43,11 +43,11 @@ typedef struct
 } cipherPara_S;
 
 void eia1(uint8_t *key, int32_t count, int32_t bearer, int32_t dir, uint8_t *data, uint32_t length, uint8_t *outMac);
-void eia2(uint8_t *key, int32_t count, int32_t bearer, int32_t dir, uint8_t *data, int32_t length, uint8_t *outMac);
-void eia3(uint8_t *key, int32_t count, int32_t bearer, int32_t dir, uint8_t *data, int32_t length, uint8_t *outMac);
+void eia2(uint8_t *key, int32_t count, int32_t bearer, int32_t dir, uint8_t *data, uint32_t length, uint8_t *outMac);
+void eia3(uint8_t *key, int32_t count, int32_t bearer, int32_t dir, uint8_t *data, uint32_t length, uint8_t *outMac);
 
-void eea1(uint8_t *key, int32_t  count, int32_t  bearer, int32_t  dir, uint8_t *data, int32_t  length, uint32_t  offset, uint8_t  *dataOut);
-void eea2(uint8_t *key, int32_t  count, int32_t  bearer, int32_t  dir, uint8_t *data, int32_t  length, uint32_t  offset, uint8_t  *dataOut);
+void eea1(uint8_t *key, int32_t  count, int32_t  bearer, int32_t  dir, uint8_t *data, uint32_t  length, uint32_t  offset, uint8_t  *dataOut);
+void eea2(uint8_t *key, int32_t  count, int32_t  bearer, int32_t  dir, uint8_t *data, uint32_t  length, uint32_t  offset, uint8_t  *dataOut);
 void eea3(uint8_t *key, uint32_t  count, uint32_t  bearer, uint32_t  dir, uint8_t *data, uint32_t  length, uint32_t  offset, uint8_t  *dataOut);
 
 void sec_get_dataOut(bool bMasterMode, cipherPara_S *secPara_p, SEC_INOUT *reg_inOut_p);

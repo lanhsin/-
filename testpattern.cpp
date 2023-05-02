@@ -30,10 +30,10 @@ void sec_log_file_unload(FILE *file)
     fclose(file);
 }
 
-void sec_log_file_dataOut(FILE *file, uint32_t idx, uint32_t len, uint32_t dataOut)
+void sec_log_file_dataOut(FILE *file, uint32_t idx, uint32_t len, uint8_t * dataOut)
 {
     uint32_t  i;
-    uint8_t *data_p = (uint8_t *)dataOut;
+    uint8_t *data_p = dataOut;
 
     fprintf(file, "//Result %d\n", idx);
 
@@ -107,9 +107,9 @@ bool sec_profile_read (uint8_t* dataIn, SEC_CTRL* reg_ctrl_p)
 bool sec_master_profile_read (uint8_t* dataIn, SEC_CTRL* reg_ctrl_p)
 {
     FILE    *file;
-    uint8_t   *write_p = dataIn;
-    uint16_t  len;
-    uint32_t	i, u32buf;
+    uint8_t  *write_p = dataIn;
+    uint16_t i, len;
+    uint32_t u32buf;
 
     file = fopen("input_master.txt", "r");
     if(!file)

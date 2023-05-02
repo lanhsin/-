@@ -15,8 +15,9 @@ static void sec_eiaChoice(bool bMasterMode, cipherPara_S* psInPara)
 {
     uint8_t *dataIn = psInPara->aData;
 
-    if(bMasterMode)
+    if(bMasterMode) {
         dataIn = dataIn + SEC_DESC_SIZE;
+    }
 
 	switch(psInPara->u32Mode & 0xF){
 		case EIA1:
@@ -40,8 +41,9 @@ static void sec_eeaChoice(bool bMasterMode, cipherPara_S* psInPara)
 {
     uint8_t *dataIn = psInPara->aData;
 
-    if(bMasterMode)
+    if(bMasterMode) {
         dataIn = dataIn + SEC_DESC_SIZE;
+    }
 
 	switch((psInPara->u32Mode >> 4)&(0xf)){
 		case EEA1:

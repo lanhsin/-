@@ -52,7 +52,7 @@ void main_sec_process(FILE *file, cipherPara_S *sec_Para, SEC_REG_DESCRIPTION *s
 
         if(sec_Para->u32Mode & 0xF)
         {
-            sec_log_file_dataOut(file, 0, 4, (uint32_t)(&secReg_get_xMac(sec_reg_desc->sec_inOut_p)));
+            sec_log_file_dataOut(file, 0, 4, (uint8_t *) &secReg_get_xMac(sec_reg_desc->sec_inOut_p));
             /* Copy result of integrity to DV team  */
             /* Don't touch the core                  */
             memcpy( (uint8_t *)secReg_get_dataOut(sec_reg_desc->sec_inOut_p),
