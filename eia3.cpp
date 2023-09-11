@@ -53,9 +53,7 @@ void eia3(uint8_t *key, int32_t count, int32_t bearer, int32_t dir, uint8_t *dat
 	#ifdef EIA3_PRINT
 		printf("EIA3 Key:\n");
 		for (i = 0;i < 16;i++)
-		{
 			printf("%02X ", key[i]);
-		}
 		printf("\n");
 	#endif
 

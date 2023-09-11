@@ -1,142 +1,85 @@
 #include "sysio.h"
 #include "security.h"
-#include "testpattern.h"
-#include <stdio.h>
+
 #include <string.h>
-#include <stdlib.h>
+#include <cstdlib>
+#include <fstream>
+#include <memory>
+#include <iostream>
 
-void main_sec_process(FILE *file, cipherPara_S *sec_Para, SEC_REG_DESCRIPTION *sec_reg_desc)
+bool sec_profile_read (unsigned char* dataOut, unsigned char* dataIn, cipherPara_S *sec_Para)
 {
-    uint32_t idx = 0;
+    std::ifstream i("input.txt");
+    if(false == i.is_open())
+        return false;
 
-    if(secReg_get_mode(sec_reg_desc->sec_ctrl_p))
-    {
-        uint16_t dataLen = 0;
-        while(1){
-            read_mem( secReg_get_dataIn(sec_reg_desc->sec_inOut_p), sec_Para->aData, 4);
+    uint32_t u32buf;
+    /* read Mode */
+    i >> std::hex >> u32buf;
+    sec_Para->u32Mode = u32buf;
+    
+    /* read count */
+    i >> u32buf;
+    sec_Para->u32Count = u32buf;
 
-            dataLen = sec_Para->aData[2] | (sec_Para->aData[3] << 8);
+    /* read bearer */
+    i >> u32buf;   
+    sec_Para->u32Bearer = u32buf;
+	
+    /* read DIR */
+    i >> u32buf;
+    sec_Para->u32Dir = u32buf;
 
-            read_mem( secReg_get_dataIn(sec_reg_desc->sec_inOut_p), sec_Para->aData, dataLen/8 + SEC_DESC_SIZE);
-            
-            sec_cipherSdu(sec_Para, sec_reg_desc->sec_ctrl_p);
-            
-            sec_get_dataOut(true, sec_Para, sec_reg_desc->sec_inOut_p);
-
-            //Shift to next dataIn ,Multiple of 4 for total dataIn len.
-            secReg_set_dataIn(  sec_reg_desc->sec_inOut_p, 
-                                 secReg_get_dataIn(sec_reg_desc->sec_inOut_p) + SEC_DESC_SIZE + (((dataLen/8 + 3) >> 2) << 2));
-
-            // Log dataOut to file
-            if(sec_Para->u32Mode & 0xF)
-                dataLen = 4;
-            else
-                dataLen = dataLen /8;
-            sec_log_file_dataOut(file, idx++, dataLen, secReg_get_dataOut(sec_reg_desc->sec_inOut_p));
-            // Shift to next dataOut
-            secReg_set_dataOut(sec_reg_desc->sec_inOut_p, secReg_get_dataOut(sec_reg_desc->sec_inOut_p));
-            // Last packet
-            if(sec_Para->aData[1] & 0x2)
-                break;
-        }
-    }
+    /* read key */
+    unsigned char* key;
+    if(sec_Para->u32Mode & 0xF)
+        key = sec_Para->aEiaKey;
     else
+        key = sec_Para->aEeaKey;
+    for (auto j = 0; j < 4; j++)
     {
-        read_mem(   secReg_get_dataIn(sec_reg_desc->sec_inOut_p), 
-                    sec_Para->aData, 
-                    secReg_get_length(sec_reg_desc->sec_ctrl_p) / 8);
-        
-        sec_cipherSdu(sec_Para, sec_reg_desc->sec_ctrl_p);
-
-        sec_get_dataOut(false, sec_Para, sec_reg_desc->sec_inOut_p);
-
-        if(sec_Para->u32Mode & 0xF)
-        {
-            sec_log_file_dataOut(file, 0, 4, (uint8_t *) &secReg_get_xMac(sec_reg_desc->sec_inOut_p));
-            /* Copy result of integrity to DV team  */
-            /* Don't touch the core                  */
-            memcpy( (uint8_t *)secReg_get_dataOut(sec_reg_desc->sec_inOut_p),
-                    (uint8_t *)(&secReg_get_xMac(sec_reg_desc->sec_inOut_p)), 4);
-        }            
-        else
-            sec_log_file_dataOut(   file, 0, 
-                                    secReg_get_length(sec_reg_desc->sec_ctrl_p) / 8, 
-                                    secReg_get_dataOut(sec_reg_desc->sec_inOut_p));
+        i >> u32buf;
+        key[j*4] = (u32buf >> 24) & 0xff;
+        key[j*4 + 1] = (u32buf >> 16) & 0xff;
+        key[j*4 + 2] = (u32buf >> 8) & 0xff;
+        key[j*4 + 3] = (u32buf) & 0xff;
     }
+
+    /* read length bits */
+    uint32_t length;
+    i >> length;
+    sec_Para->u32Len = length;
+    
+    length = (length + 64 + 31) / 32;
+    /* read plaintext 4 bytes */
+    sec_Para->aData = dataIn;
+    for (uint32_t j = 0; j < length; j++)
+    {
+        i >> u32buf;
+        dataIn[j*4] = (u32buf >> 24) & 0xff;
+        dataIn[j*4 + 1] = (u32buf >> 16) & 0xff;
+        dataIn[j*4 + 2] = (u32buf >> 8) & 0xff;
+        dataIn[j*4 + 3] = (u32buf) & 0xff;
+    }
+
+    sec_Para->dataOut = dataOut;
+
+    return true;
 }
-
-#ifdef CO_SIM_RTK
-int main_sec(UINT32 file_seed, UINT8* dataOut)
-{
-    int ret_val = EXIT_SUCCESS;
-    cipherPara_S           sec_Para;
-    SEC_REG_DESCRIPTION    sec_reg_desc;
-    FILE                   *file  = NULL;
-
-    if(sec_log_file_load(file_seed, &file) == FALSE)
-        return EXIT_FAILURE;
-
-    secReg_initialize(&sec_reg_desc);
-
-    secReg_trigger_hw(secReg_get_dataIn(sec_reg_desc.sec_inOut_p),(UINT32)dataOut,sec_reg_desc.sec_inOut_p);
-    main_sec_process(file, &sec_Para, &sec_reg_desc);
-    secReg_deinitialize(&sec_reg_desc);    
-    sec_log_file_unload(file);
-    return ret_val;
-}
-
-
-#else
-
-struct test2{
-    int a;
-    int b;
-    int c;
-};
-
-struct test1{
-    struct test2 *test2_object;
-};
 
 int main(void)
 {
-    uint8_t dataIn[MAX_DATA_LEN];
-    uint8_t dataOut[MAX_DATA_LEN];
-    cipherPara_S           sec_Para;
-    SEC_REG_DESCRIPTION    sec_reg_desc;
+    //std::unique_ptr<unsigned char> dataIn = std::make_unique<unsigned char>(MAX_DATA_LEN);
+    //std::unique_ptr<unsigned char> dataOut = std::make_unique<unsigned char>(MAX_DATA_LEN);
 
-    FILE                   *file  = NULL;
+    unsigned char dataIn[1024]; 
+    unsigned char dataOut[1024];
+    cipherPara_S sec_Para;
 
-    secReg_initialize(&sec_reg_desc);
-
-    if(sec_log_file_load(0, &file) == false)
-    {
-        secReg_deinitialize(&sec_reg_desc);
+    if(sec_profile_read(dataOut, dataIn, &sec_Para) == false)
         return EXIT_FAILURE;
-    }
 
-    if(sec_profile_read(dataIn, sec_reg_desc.sec_ctrl_p) == false)
-    {
-        secReg_deinitialize(&sec_reg_desc);
-        printf("lanhsin %d\n", __LINE__);
-        sec_log_file_unload(file);
-        return EXIT_FAILURE;
-    }
-
-    secReg_trigger_hw((uint32_t)dataIn,(uint32_t)dataOut,sec_reg_desc.sec_inOut_p);
-
-    secReg_set_mode(sec_reg_desc.sec_ctrl_p, 0);
-
-    if(secReg_get_mode(sec_reg_desc.sec_ctrl_p))
-        sec_master_profile_read(dataIn, sec_reg_desc.sec_ctrl_p);
-
-    main_sec_process(file, &sec_Para, &sec_reg_desc);
-
-    secReg_deinitialize(&sec_reg_desc);
-    sec_log_file_unload(file);
+    sec_cipherSdu(&sec_Para);
 
     return EXIT_SUCCESS;
 }
-
-#endif
-

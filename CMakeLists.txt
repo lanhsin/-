@@ -13,32 +13,12 @@ set(cmodle_srcs
     eia2.cpp
     eia3.cpp
     sysio.cpp
-    sec_reg.cpp
     security.cpp
-    testpattern.cpp
     wrapper.cpp ) 
 
-set(fpga_srcs 
-    SNOW_3G.cpp
-    ZUC.cpp
-    AES_Encrypt.cpp
-    eea1.cpp
-    eea2.cpp
-    eea3.cpp
-    eia1.cpp
-    eia2.cpp
-    eia3.cpp
-    sysio.cpp
-    plat_security.cpp
-    securityFpga.cpp
-    ) 
 
 add_executable(SecCmodel ${cmodle_srcs})
-target_compile_options(SecCmodel PUBLIC -Wall -fpermissive)
-
-add_executable(SecFPGA ${fpga_srcs})
-target_compile_options(SecFPGA PUBLIC -Wall -fpermissive)
+target_compile_options(SecCmodel PUBLIC -Wall)
 
 install(TARGETS SecCmodel DESTINATION ${CMAKE_SOURCE_DIR}) 
-install(TARGETS SecFPGA DESTINATION ${CMAKE_SOURCE_DIR}) 
 
