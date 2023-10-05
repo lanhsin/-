@@ -1,11 +1,10 @@
-#include "sysio.h"
 #include "security.h"
+#include "log.h"
 
-#include <string.h>
-#include <cstdlib>
 #include <fstream>
 #include <memory>
 #include <iostream>
+
 
 bool sec_profile_read (unsigned char* dataOut, unsigned char* dataIn, cipherPara_S *sec_Para)
 {
@@ -69,14 +68,14 @@ bool sec_profile_read (unsigned char* dataOut, unsigned char* dataIn, cipherPara
 
 int main(void)
 {
-    //std::unique_ptr<unsigned char> dataIn = std::make_unique<unsigned char>(MAX_DATA_LEN);
-    //std::unique_ptr<unsigned char> dataOut = std::make_unique<unsigned char>(MAX_DATA_LEN);
+    std::unique_ptr<unsigned char[]> dataIn = std::make_unique<unsigned char[]>(MAX_DATA_LEN);
+    std::unique_ptr<unsigned char[]> dataOut = std::make_unique<unsigned char[]>(MAX_DATA_LEN);
 
-    unsigned char dataIn[1024]; 
-    unsigned char dataOut[1024];
     cipherPara_S sec_Para;
+    std::cout << "\nCHIPER-IP : Log level is " << LOG_LEVEL << "\n\n";
 
-    if(sec_profile_read(dataOut, dataIn, &sec_Para) == false)
+    sec_log_setlevel(LOG_LEVEL);
+    if(sec_profile_read(dataOut.get(), dataIn.get(), &sec_Para) == false)
         return EXIT_FAILURE;
 
     sec_cipherSdu(&sec_Para);

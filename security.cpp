@@ -7,13 +7,13 @@
 
 #include "sysio.h"
 #include "security.h"
-#include <string.h>
+#include <cstring>
 #include <iostream>
 #include <iomanip>
 
 static void sec_eiaChoice(cipherPara_S* psInPara)
 {
-    uint8_t *dataIn = psInPara->aData;
+    unsigned char* dataIn = psInPara->aData;
 
 	switch(psInPara->u32Mode & 0xF){
 		case EIA1:
@@ -35,9 +35,9 @@ static void sec_eiaChoice(cipherPara_S* psInPara)
 
 static void sec_eeaChoice(cipherPara_S* psInPara)
 {
-    uint8_t *dataIn = psInPara->aData;
+    unsigned char* dataIn = psInPara->aData;
 
-	switch((psInPara->u32Mode >> 4)&(0xf)){
+	switch((psInPara->u32Mode >> 4)& 0xf){
 		case EEA1:
 			eea1(psInPara->aEeaKey, psInPara->u32Count, psInPara->u32Bearer, psInPara->u32Dir, dataIn, psInPara->u32Len, psInPara->u32Offset, psInPara->dataOut);
 			break;
@@ -83,7 +83,7 @@ static void sec_para_print(cipherPara_S *secPara_p)
     std::cout << "\nsecPara_p->aData[] = \n";
 
     j = 0;
-    for (i=0; i< (secPara_p->u32Len + 16 + 7) / 8; i++, j++)
+    for (i = 0; i< (secPara_p->u32Len + 16 + 7) / 8; i++, j++)
     {
         if(i%8 == 0 && i != 0)
             std::cout << " ";
@@ -106,8 +106,7 @@ static void sec_para_print(cipherPara_S *secPara_p)
                 std::cout << " ";
             if(i%16 == 0 && i != 0)
                 std::cout << "\n";
-
-            std::cout << +secPara_p->dataOut[i];
+            std::cout << std::setfill('0') << std::setw(2) << +secPara_p->dataOut[i] << ' ';
         }
     }    
     std::cout<<"\n=========================================\n\n";

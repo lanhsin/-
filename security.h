@@ -25,8 +25,6 @@ enum integrityAlgo
 	EIA3 = 4
 };
 
-
-
 struct cipherPara_S
 {
 	uint32_t  u32Len;
@@ -36,9 +34,9 @@ struct cipherPara_S
 	uint32_t  u32Count;
 	unsigned char aEeaKey[16];
 	unsigned char aEiaKey[16];
-	unsigned char* aData;
-	uint32_t  u32Offset;  //used to perform ciphering segment by segment
-	unsigned char* dataOut;
+	unsigned char* aData = nullptr;
+	uint32_t  u32Offset = 0;  //used to perform ciphering segment by segment
+	unsigned char* dataOut = nullptr;
 };
 
 void eia1(unsigned char* key, int32_t count, int32_t bearer, int32_t dir, unsigned char* data, uint32_t length, unsigned char* outMac);

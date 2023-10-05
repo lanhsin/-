@@ -1,11 +1,8 @@
 
 #include "SNOW_3G.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include "log.h"
+#include <memory>
 
-//#define EEA1_PRINT
-//#define EEA1_PRINT_2
 
 /* eea1.
 * Input key: 128 bit Confidentiality Key.
@@ -22,13 +19,13 @@
 */
 void eea1(uint8_t *key, int32_t count, int32_t bearer, int32_t dir, uint8_t *data, uint32_t length, uint32_t offset, uint8_t *dataOut)
 {
-	uint32_t K[4],IV[4];
+	uint32_t K[4], IV[4];
 	uint32_t n = (length + offset  + 31 ) / 32, sum = 0;
 	uint32_t endRes = ((length + offset) % 32) / 8;  //assume that the data is byte-aligned. 
 	uint32_t startPos = offset / 32, startRes = (offset % 32) / 8;
 	uint32_t h = 0, k = 0;
 	uint32_t i = 0, j = 0, m = 0;
-	uint32_t *KS;
+
 	/*Initialisation*/
 	/* Load the confidentiality key for SNOW 3G initialization as in section
 	3.4. */
@@ -44,51 +41,36 @@ void eea1(uint8_t *key, int32_t count, int32_t bearer, int32_t dir, uint8_t *dat
 	IV[0] = IV[2];
 
 	//eea1_print add by zhangyuanliang
-	#ifdef EEA1_PRINT
-		for (i=0;i<4;i++)
-		{
-			printf("K%d = %0x\n", i, K[i]);
-			printf("IV%d = %0x\n", i, IV[i]);
-		}
-	#endif
+	for (i = 0; i < 4; i++)
+	{
+		sec_log(LogLevel::INFO, "K[%d] = %0x\n", i, K[i]);
+		sec_log(LogLevel::INFO, "IV[%d] = %0x\n", i, IV[i]);
+	}
+
 	/* Run SNOW 3G algorithm to generate sequence of key stream bits KS*/
 	Initialize(K,IV);
 
-	KS = (uint32_t *)malloc(4*n);
-	GenerateKeystream(n,(uint32_t*)KS);
+	std::unique_ptr<uint32_t[]> KS = std::make_unique<uint32_t[]>(n);
+	GenerateKeystream(n, KS.get());
 	/* Exclusive-OR the input data with keystream to generate the output bit stream */
-	#ifdef EEA1_PRINT_2
-		printf("EEA1 KS:\n");
-	#endif
-	for (i=startPos; i<n; i++)
+
+	sec_log(LogLevel::DEBUG, "EEA1 KS:\n");
+	for (i = startPos; i < n; i++)
 	{
-#ifdef EEA1_PRINT_2
-	    printf("cipher block[%d] = ", i);
-#endif
+	    sec_log(LogLevel::DEBUG, "cipher block[%d] = ", i);
 	    h = (i == startPos) ? startRes : 0;
 	    k = (i == n - 1) ? ((endRes == 0) ? 4 : endRes) : 4;
 
-	    for (j=h; j<k; j++, m++)
+	    for (j = h; j < k; j++, m++)
 	    {
-#ifdef EEA1_PRINT_2
-	//	printf("%02X", (u8)(*(KS+i)>>((3-j)*8)));
-#endif
-		dataOut[m] = data[m] ^ (uint8_t)(*(KS+i)>>((3-j)*8));
-#ifdef EEA1_PRINT_2
-		printf("%02X", dataOut[m]);
-#endif
+			dataOut[m] = data[m] ^ (uint8_t)(KS[i]>>((3-j)*8));
+			sec_log(LogLevel::DEBUG, "%02X", dataOut[m]);
 
-		sum += 8;
-		if (sum >= length)
-		{
-		    break;
-		}
+			sum += 8;
+			if (sum >= length)
+			    break;
 	    }
-#ifdef EEA1_PRINT_2
-	    printf("\n");
-#endif
+	    sec_log(LogLevel::DEBUG, "\n");
 	}
-
-	free(KS);
 }
 /* End of f8.c */

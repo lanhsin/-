@@ -1,21 +1,15 @@
 #include "ZUC.h"
-#include <stdlib.h>
-#include <stdio.h>
-
-
-//#define EIA3_PRINT
-//#define EIA3_PRINT_2
+#include "log.h"
+#include <memory>
 
 static uint32_t GET_WORD(uint32_t * DATA, uint32_t i)
 {
-	uint32_t WORD, ti;
-	ti = i % 32;
-	if (ti == 0) {
+	uint32_t WORD;
+	uint32_t ti = i % 32;
+	if (ti == 0)
 		WORD = DATA[i/32];
-	}
-	else {
+	else
 		WORD = (DATA[i/32]<<ti) | (DATA[i/32+1]>>(32-ti));
-	}
 	return WORD;
 }
 
@@ -26,13 +20,12 @@ static uint8_t GET_BIT(uint8_t * DATA, uint32_t i)
 
 void eia3(uint8_t *key, int32_t count, int32_t bearer, int32_t dir, uint8_t *data, uint32_t length, uint8_t *outMac)
 {
-	uint32_t *KS;
 	uint32_t L = (length+31) / 32 + 2; 
 	uint32_t T = 0, retMac = 0;
 	uint32_t i;
 	uint8_t IV[16];
 	
-	KS      = (uint32_t *) malloc(L*sizeof(uint32_t));
+	std::unique_ptr<uint32_t[]> KS = std::make_unique<uint32_t[]>(L);
 	IV[0]  = (count>>24) & 0xFF;
 	IV[1]  = (count>>16) & 0xFF;
 	IV[2]  = (count>>8) & 0xFF;
@@ -50,58 +43,33 @@ void eia3(uint8_t *key, int32_t count, int32_t bearer, int32_t dir, uint8_t *dat
 	IV[14] = IV[6] ^((dir&1) << 7);
 	IV[15] = IV[7];
 
-	#ifdef EIA3_PRINT
-		printf("EIA3 Key:\n");
-		for (i = 0;i < 16;i++)
-			printf("%02X ", key[i]);
-		printf("\n");
-	#endif
+	sec_log(LogLevel::INFO, "EIA3 Key:\n");
+	for (i = 0; i < 16; i++)
+		sec_log(LogLevel::INFO, "%02X ", key[i]);
+	sec_log(LogLevel::INFO, "\nEIA3 IV:\n");
+	for (i = 0; i < 16; i++)
+		sec_log(LogLevel::INFO, "%02X", IV[i]);
 
-#ifdef EIA3_PRINT
-		printf("EIA3 IV:\n");
-		for (i = 0;i < 16;i++)
-		{
-			printf("%02X", IV[i]);
-		}
-		printf("\n");
-#endif	
+	ZUC(key, IV, KS.get(), L);
 
-	ZUC(key,IV,KS,L);
-
-#ifdef EIA3_PRINT
-	printf("EIA3 KS:\n");
-	for (i = 0; i < L;i++)
-	{
-		printf("%08X\n", KS[i]);
-	}
-#endif
+	sec_log(LogLevel::INFO, "\nEIA3 KS:\n");
+	for (i = 0; i < L; i++)
+		sec_log(LogLevel::INFO, "%08X\n", KS[i]);
 
 	for (i = 0; i < length; i++)
 	{	
-		if (GET_BIT(data,i)) {
-#ifdef EIA3_PRINT_2
-			printf("T_0x%08x ^ GET_WORD(KS,%d)_0x%08x = 0x%08x\n", T, i, GET_WORD(KS,i), T^GET_WORD(KS,i));
-#endif
-			T ^= GET_WORD(KS,i);			
+		if (GET_BIT(data, i)) {
+			sec_log(LogLevel::DEBUG, "T_0x%08x ^ GET_WORD(KS,%d)_0x%08x = 0x%08x\n", T, i, GET_WORD(KS.get(), i), T^GET_WORD(KS.get(), i));
+			T ^= GET_WORD(KS.get(), i);			
 		}
-
 	}
 		
-	T ^= GET_WORD(KS, length);
-
-	
+	T ^= GET_WORD(KS.get(), length);
 	retMac = T ^ KS[L-1];
 
-	for(i=0; i<4; i++)
-	{
+	for(i = 0; i < 4; i++)
 		outMac[i] = (uint8_t)(retMac >> (3-i)*8 );
-	}
 
-
-#ifdef EIA3_PRINT_2
-	printf("\n");
-#endif
-
-    free(KS);
+	sec_log(LogLevel::DEBUG, "\n");
 }
 
