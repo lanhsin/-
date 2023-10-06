@@ -4,7 +4,7 @@
 
 1. mkdir build
 2. cd build
-3. cmake ..
+3. cmake .. -DLOG_LEVEL=INFO
 
 ### Execution
 

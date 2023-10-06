@@ -1,5 +1,5 @@
 #include "ZUC.h"
-#include <stdio.h>
+#include "log.h"
 
 #define MAKEU31(a, b, c) (((uint32_t)(a) << 23) | ((uint32_t)(b) << 8) | (uint32_t)(c))
 #define MAKEU32(a, b, c, d) (((uint32_t)(a) << 24) | ((uint32_t)(b) << 16) | ((uint32_t)(c) << 8) | ((uint32_t)(d)))
@@ -85,21 +85,19 @@ static uint32_t EK_d[16] =
 static void zuc_print(int num, const char *comment)
 {
 	if (comment != nullptr)
-	{
-		printf("\n// %s", comment);
-	}
+		sec_log(LogLevel::TRACE, "\n// %s", comment);
 
 	if(num <  0)
 		return;
 	else
-		printf("loop number %d\n", num);
+		sec_log(LogLevel::TRACE, "loop number %d\n", num);
 	
-	printf("LFSR_S0-S3   = %08X %08X %08X %08X\n", LFSR_S0, LFSR_S1, LFSR_S2, LFSR_S3);
-	printf("LFSR_S4-S7   = %08X %08X %08X %08X\n", LFSR_S4, LFSR_S5, LFSR_S6, LFSR_S7);
-	printf("LFSR_S8-S11  = %08X %08X %08X %08X\n", LFSR_S8, LFSR_S9, LFSR_S10, LFSR_S11);
-	printf("LFSR_S12-S15 = %08X %08X %08X %08X\n", LFSR_S12, LFSR_S13, LFSR_S14, LFSR_S15);	
-	printf("F_R1-2 = %08X %08X\n", F_R1, F_R2);	
-	printf("BRC_X0-4 = %08X %08X %08X %08X\n", BRC_X0, BRC_X1, BRC_X2, BRC_X3);
+	sec_log(LogLevel::TRACE, "LFSR_S0-S3   = %08X %08X %08X %08X\n", LFSR_S0, LFSR_S1, LFSR_S2, LFSR_S3);
+	sec_log(LogLevel::TRACE, "LFSR_S4-S7   = %08X %08X %08X %08X\n", LFSR_S4, LFSR_S5, LFSR_S6, LFSR_S7);
+	sec_log(LogLevel::TRACE, "LFSR_S8-S11  = %08X %08X %08X %08X\n", LFSR_S8, LFSR_S9, LFSR_S10, LFSR_S11);
+	sec_log(LogLevel::TRACE, "LFSR_S12-S15 = %08X %08X %08X %08X\n", LFSR_S12, LFSR_S13, LFSR_S14, LFSR_S15);	
+	sec_log(LogLevel::TRACE, "F_R1-2 = %08X %08X\n", F_R1, F_R2);	
+	sec_log(LogLevel::TRACE, "BRC_X0-4 = %08X %08X %08X %08X\n", BRC_X0, BRC_X1, BRC_X2, BRC_X3);
 
 }
 

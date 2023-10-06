@@ -16,7 +16,6 @@ void sec_log_setlevel(const char* level)
         def_level = LogLevel::ERROR;
 }
 
-
 bool sec_log_benabled(LogLevel level)
 {
     if (level >= def_level)

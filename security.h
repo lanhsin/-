@@ -10,33 +10,33 @@
 ******************************************************************************/
 enum cipherAlgo
 {
-	EEA0 = 0,
-	EEA1 = 1,
-	EEA2 = 2,
-	EEA3 = 3
+    EEA0 = 0,
+    EEA1 = 1,
+    EEA2 = 2,
+    EEA3 = 3
 };
 
 enum integrityAlgo
 {
-	NO_INTEGRITY = 0,
-	EIA0 = 1,
-	EIA1 = 2,
-	EIA2 = 3,
-	EIA3 = 4
+    NO_INTEGRITY = 0,
+    EIA0 = 1,
+    EIA1 = 2,
+    EIA2 = 3,
+    EIA3 = 4
 };
 
 struct cipherPara_S
 {
-	uint32_t  u32Len;
-	uint32_t  u32Dir;          /* The dir bit shall be 0 for uplink and 1 for downlink */
-	uint32_t  u32Bearer;
-	uint32_t  u32Mode;
-	uint32_t  u32Count;
-	unsigned char aEeaKey[16];
-	unsigned char aEiaKey[16];
-	unsigned char* aData = nullptr;
-	uint32_t  u32Offset = 0;  //used to perform ciphering segment by segment
-	unsigned char* dataOut = nullptr;
+    uint32_t  u32Len;
+    uint32_t  u32Dir;          /* The dir bit shall be 0 for uplink and 1 for downlink */
+    uint32_t  u32Bearer;
+    uint32_t  u32Mode;
+    uint32_t  u32Count;
+    unsigned char aEeaKey[16];
+    unsigned char aEiaKey[16];
+    unsigned char* aData = nullptr;
+    uint32_t  u32Offset = 0;  //used to perform ciphering segment by segment
+    unsigned char* dataOut = nullptr;
 };
 
 void eia1(unsigned char* key, int32_t count, int32_t bearer, int32_t dir, unsigned char* data, uint32_t length, unsigned char* outMac);
